@@ -1,0 +1,92 @@
+<div
+  class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center"
+>
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="7" md="9" xl="6">
+        <c-card class="mx-4">
+          <c-card-body class="p-4">
+            <form cForm>
+              <h6>Almost done...</h6>
+              <p class="text-body-secondary">
+                Provide ICT Coordinator information and create a strong password
+              </p>
+              <label cLabel for="firstName">First name</label>
+              <c-input-group class="mb-3">
+                <input cFormControl id="firstName" placeholder="E.g. John" />
+              </c-input-group>
+
+              <label cLabel for="lastName">Last name</label>
+              <c-input-group class="mb-3">
+                <input cFormControl id="lastName" placeholder="E.g. Doe" />
+              </c-input-group>
+
+              <label cLabel for="middleName">Middle name (optional)</label>
+              <c-input-group class="mb-3">
+                <input
+                  cFormControl
+                  type="text"
+                  id="middleName"
+                  placeholder="E.g. Kwesi"
+                />
+              </c-input-group>
+
+              <label cLabel for="gender">Gender</label>
+              <c-input-group class="mb-3">
+                <select cSelect id="gender">
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                </select>
+              </c-input-group>
+
+              <label cLabel for="email">Email address</label>
+              <c-input-group class="mb-3">
+                <input
+                  cFormControl
+                  type="email"
+                  id="email"
+                  placeholder="E.g. j_kwesi@yahoo.com"
+                />
+              </c-input-group>
+
+              <label cLabel for="phoneNumber">Phone number</label>
+              <c-input-group class="mb-3">
+                <input
+                  cFormControl
+                  id="phoneNumber"
+                  placeholder="E.g. 23324255761"
+                />
+              </c-input-group>
+
+              <label cLabel for="password">Password</label>
+              <c-input-group class="mb-3">
+                <input
+                  cFormControl
+                  type="password"
+                  id="password"
+                  placeholder="Enter a strong password"
+                />
+              </c-input-group>
+
+              <label cLabel for="confirmPassword">Confirm password</label>
+              <c-input-group class="mb-3">
+                <input
+                  cFormControl
+                  type="password"
+                  id="confirmPassword"
+                  placeholder="Confirm your password"
+                />
+              </c-input-group>
+
+              <div class="d-grid">
+                <button cButton color="primary" class="text-white">
+                  Create Account
+                </button>
+              </div>
+            </form>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>

@@ -1,0 +1,66 @@
+<h6 mat-dialog-title class="text-primary">Supported Placeholders</h6>
+<div mat-dialog-content>
+  <c-row>
+    <c-col sm="12">
+      <table class="table table-responsive table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Attribute</th>
+            <th scope="col">Placeholder</th>
+            <th scope="col">Usage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Student name</td>
+            <td>name</td>
+            <td>&lbrace;name&rbrace;</td>
+          </tr>
+          <tr>
+            <td>Admission number</td>
+            <td>adminNumber</td>
+            <td>&lbrace;adminNumber&rbrace;</td>
+          </tr>
+          <tr>
+            <td>Programme offered</td>
+            <td>programOffered</td>
+            <td>&lbrace;programOffered&rbrace;</td>
+          </tr>
+          <tr>
+            <td>Residential status</td>
+            <td>residentialStatus</td>
+            <td>&lbrace;residentialStatus&rbrace;</td>
+          </tr>
+          <tr>
+            <td>House allocated</td>
+            <td>houseAllocated</td>
+            <td>&lbrace;houseAllocated&rbrace;</td>
+          </tr>
+        </tbody>
+      </table>
+    </c-col>
+  </c-row>
+  <div style="height: 10px"></div>
+  <c-row>
+    <c-col sm="12">
+      <h6>Sample Letter Format</h6>
+      <br />
+      <p>Dear <strong>&lbrace;name&rbrace;</strong>,</p>
+      <p>Admission number: <strong>&lbrace;adminNumber&rbrace;</strong></p>
+      <h6 style="text-align: center; text-decoration: underline">
+        ADMISSION NOTICE, 2024/2025 ACADEMIC YEAR
+      </h6>
+      <p>
+        I am pleased to inform you that you have been offered admission to SHS 1
+        as a <strong>&lbrace;residentialStatus&rbrace;</strong> student to
+        pursue a 3-year course in
+        <strong>&lbrace;programOffered&rbrace;</strong> as a result of your
+        success in the Basic Education Certificate Examination (BECE).
+      </p>
+      <p>
+        You are allocated to <strong>&lbrace;houseAllocated&rbrace;</strong> and
+        you are to report to school no later than 7TH NOVEMBER, 2024.
+      </p>
+    </c-col>
+  </c-row>
+</div>

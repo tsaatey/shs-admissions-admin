@@ -1,0 +1,142 @@
+<c-nav variant="tabs">
+  <a [active]="true" [cTabContent]="tabContent" [tabPaneIdx]="0" cNavLink
+    >Admission Number</a
+  >
+  <a [cTabContent]="tabContent" [tabPaneIdx]="1" cNavLink>Add new student</a>
+</c-nav>
+<c-tab-content #tabContent="cTabContent">
+  <c-tab-pane class="p-3">
+    <c-card>
+      <c-card-body>
+        <c-row>
+          <c-col sm="5">
+            <c-card>
+              <c-card-body>
+                <c-row>
+                  <c-col sm="12">
+                    <form cForm>
+                      <label cLabel for="indexNumber">Index number</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="indexNumber"
+                          cFormControl
+                          placeholder="E.g 011302704524"
+                        />
+                      </c-input-group>
+                      <div class="d-grid">
+                        <button
+                          cButton
+                          type="button"
+                          class="text-white"
+                          color="primary"
+                        >
+                          Generate
+                        </button>
+                      </div>
+                    </form>
+                  </c-col>
+                </c-row>
+              </c-card-body>
+            </c-card>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-tab-pane>
+  <c-tab-pane class="p-3">
+    <c-card>
+      <c-card-body>
+        <c-row class="d-flex justify-content-center">
+          <c-col sm="5">
+            <c-card>
+              <c-card-body>
+                <c-row>
+                  <c-col sm="12">
+                    <form cForm>
+                      <label cLabel for="jhsIndexNumber">Index number</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="jhsIndexNumber"
+                          cFormControl
+                          placeholder="E.g 011302704524"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="name">Full name</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="name"
+                          cFormControl
+                          placeholder="E.g Kofi Akpaloo Kojo"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="gender">Gender</label>
+                      <c-input-group class="mb-3" id="gender">
+                        <select cSelect>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                      </c-input-group>
+
+                      <label cLabel for="grade">Aggregate</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="number"
+                          id="grade"
+                          cFormControl
+                          placeholder="E.g 13"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="programOffered">Programme</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="programOffered"
+                          cFormControl
+                          placeholder="E.g General Arts"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="track">Track</label>
+                      <c-input-group class="mb-3">
+                        <select cSelect id="track">
+                          <option value="Gold">Gold</option>
+                          <option value="Green">Green</option>
+                          <option value="Single">Single</option>
+                        </select>
+                      </c-input-group>
+
+                      <label cLabel for="residentialStatus">Residency</label>
+                      <c-input-group class="mb-3">
+                        <select cSelect>
+                          <option value="Day">Day</option>
+                          <option value="Boarding">Boarding</option>
+                        </select>
+                      </c-input-group>
+
+                      <div class="d-grid">
+                        <button
+                          cButton
+                          type="button"
+                          class="text-white"
+                          color="primary"
+                        >
+                          Add Student
+                        </button>
+                      </div>
+                    </form>
+                  </c-col>
+                </c-row>
+              </c-card-body>
+            </c-card>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-tab-pane>
+</c-tab-content>

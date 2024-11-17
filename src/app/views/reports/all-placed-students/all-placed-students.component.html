@@ -1,0 +1,106 @@
+<c-card>
+  <c-card-body>
+    <!-- First row -->
+    <c-row>
+      <c-col sm="5">
+        <h4 class="card-title mb-0" id="traffic">All Placed Students</h4>
+        <div class="small text-body-secondary">
+          {{ academicYear + " Admission Session" }}
+        </div>
+      </c-col>
+      <c-col sm="2" class="d-flex align-items-center">
+        <mat-icon role="button" class="text-primary icon"
+          >cloud_download</mat-icon
+        >
+      </c-col>
+      <c-col sm="5" class="d-flex align-items-center">
+        <c-input-group>
+          <input
+            type="search"
+            cFormControl
+            placeholder="Enter name of index number"
+          />
+          <button cButton color="primary" type="button" variant="outline">
+            Search
+          </button>
+        </c-input-group>
+      </c-col>
+    </c-row>
+
+    <div style="height: 16px"></div>
+
+    <!-- Second row -->
+    <c-row>
+      <c-col sm="12">
+        <table mat-table matSort>
+          <!-- Index number Column -->
+          <ng-container matColumnDef="jhsIndexNumber">
+            <th mat-header-cell *matHeaderCellDef>Index number</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.jhsIndexNumber }}
+            </td>
+          </ng-container>
+
+          <!-- Student name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Candidate name</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.name }}
+            </td>
+          </ng-container>
+
+          <!-- Gender Column -->
+          <ng-container matColumnDef="gender">
+            <th mat-header-cell *matHeaderCellDef>Gender</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.gender }}
+            </td>
+          </ng-container>
+
+          <!-- Residency Column -->
+          <ng-container matColumnDef="residentialStatus">
+            <th mat-header-cell *matHeaderCellDef>Residency</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.residentialStatus }}
+            </td>
+          </ng-container>
+
+          <!-- Grade Column -->
+          <ng-container matColumnDef="grade">
+            <th mat-header-cell *matHeaderCellDef>Grade</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.grade }}
+            </td>
+          </ng-container>
+
+          <!-- Programme Column -->
+          <ng-container matColumnDef="programmeOffered">
+            <th mat-header-cell *matHeaderCellDef>Programme</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.programmeOffered }}
+            </td>
+          </ng-container>
+
+          <!-- Track Column -->
+          <ng-container matColumnDef="track">
+            <th mat-header-cell *matHeaderCellDef>Track</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.track }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator
+          showFirstLastButtons=""
+          [pageSizeOptions]="[20, 40, 60]"
+          aria-label="Select page"
+          [style.marginTop]="'16px'"
+          #housePaginator
+        >
+        </mat-paginator>
+      </c-col>
+    </c-row>
+  </c-card-body>
+</c-card>

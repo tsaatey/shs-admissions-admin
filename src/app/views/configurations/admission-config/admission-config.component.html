@@ -1,0 +1,255 @@
+<c-nav variant="tabs">
+  <a [active]="true" [cTabContent]="tabContent" [tabPaneIdx]="0" cNavLink
+    >Group A</a
+  >
+  <a [cTabContent]="tabContent" [tabPaneIdx]="1" cNavLink
+    >Student Particulars</a
+  >
+</c-nav>
+<c-tab-content #tabContent="cTabContent">
+  <c-tab-pane class="p-3">
+    <c-card>
+      <c-card-body>
+        <c-row>
+          <c-col sm="6">
+            <c-card>
+              <c-card-body>
+                <c-row>
+                  <c-col sm="12">
+                    <p>
+                      Set your school's
+                      <strong>CSSPS login credentials</strong> as default
+                      authentication parameters for the placement process. Our
+                      system will need it for the purpose of verifying and
+                      retrieving students placed in your school only.
+                    </p>
+                    <form cForm>
+                      <label cLabel for="schoolCode">School code</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="schoolCode"
+                          cFormControl
+                          placeholder="E.g 0010101"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="password">Password</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="password"
+                          id="password"
+                          cFormControl
+                          placeholder="password for cssps account"
+                        />
+                      </c-input-group>
+
+                      <div class="d-grid">
+                        <button
+                          cButton
+                          type="button"
+                          class="text-white"
+                          color="primary"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </form>
+                  </c-col>
+                </c-row>
+              </c-card-body>
+            </c-card>
+          </c-col>
+          <c-col sm="6">
+            <c-card>
+              <c-card-body>
+                <c-row>
+                  <c-col sm="12">
+                    <p>
+                      Set the amount of money students must pay as cost of
+                      voucher. Take note that cost of vouchers are school
+                      specific.
+                    </p>
+                    <form cForm>
+                      <label cLabel for="costOfVoucher">Cost of voucher</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="number"
+                          id="costOfVoucher"
+                          cFormControl
+                          placeholder="E.g 40"
+                        />
+                      </c-input-group>
+
+                      <div class="d-grid">
+                        <button
+                          cButton
+                          type="button"
+                          class="text-white"
+                          color="primary"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </form>
+                  </c-col>
+                </c-row>
+              </c-card-body>
+            </c-card>
+          </c-col>
+        </c-row>
+
+        <div style="height: 40px"></div>
+
+        <!-- Admission letter and Admision number pattern -->
+        <c-row>
+          <c-col sm="6">
+            <c-card>
+              <c-card-body>
+                <c-row>
+                  <c-col sm="12">
+                    <p>
+                      Format the admission letter and insert placeholders into
+                      specific places. Example of a placeholder is the full name
+                      of the student. The system will replace the placeholder
+                      with the actual student name when the online form is
+                      filled. Put the placeholder in-between two curly braces.
+                      E.g. <strong>&lbrace;name&rbrace;.</strong> Click
+                      <span
+                        style="cursor: pointer; text-decoration: underline"
+                        class="text-primary"
+                        (click)="onViewPlaceholders()"
+                        >here</span
+                      >
+                      for list of supported placeholders.
+                    </p>
+                    <form cForm>
+                      <label cLabel for="admissionLetter"
+                        >Admission Letter (MS Word Format Only)</label
+                      >
+                      <c-input-group class="mb-3">
+                        <input
+                          type="file"
+                          id="admissionLetter"
+                          cFormControl
+                          accept=".docx, .doc"
+                        />
+                      </c-input-group>
+
+                      <div class="d-grid">
+                        <button
+                          cButton
+                          type="button"
+                          class="text-white"
+                          color="primary"
+                        >
+                          Upload
+                        </button>
+                      </div>
+                    </form>
+                  </c-col>
+                </c-row>
+              </c-card-body>
+            </c-card>
+          </c-col>
+          <c-col sm="6">
+            <c-card>
+              <c-card-body>
+                <c-row>
+                  <c-col sm="12">
+                    <p>
+                      Set the admission number pattern based on which admission
+                      numbers will be generated. Use four aesterisks to indicate
+                      where the serial numbers should be. For example:
+                      <strong>GL/****/24</strong> will be
+                      <strong>GL/0001/24</strong>, &nbsp;
+                      <strong>GL/24/****</strong> will be
+                      <strong>GL/24/0001</strong>, etc. You can omit the
+                      aesterisks if the serial number is at the end.
+                    </p>
+                    <form cForm>
+                      <label cLabel for="admissionNumberPrefix"
+                        >Admission number pattern</label
+                      >
+                      <c-input-group class="mb-3">
+                        <input
+                          type="number"
+                          id="admissionNumberPrefix"
+                          cFormControl
+                          placeholder="E.g GHA****/24"
+                        />
+                      </c-input-group>
+
+                      <div class="d-grid">
+                        <button
+                          cButton
+                          type="button"
+                          class="text-white"
+                          color="primary"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </form>
+                  </c-col>
+                </c-row>
+              </c-card-body>
+            </c-card>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-tab-pane>
+  <c-tab-pane class="p-3">
+    <c-card>
+      <c-card-body>
+        <c-row>
+          <c-col sm="5">
+            <c-card>
+              <c-card-body>
+                <c-row>
+                  <c-col sm="12">
+                    <p>
+                      Add items (particulars) that students are supposed to
+                      submit at the various check-in points on arrival.
+                    </p>
+                    <form cForm>
+                      <label cLabel for="particular">Student Particular</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="particular"
+                          cFormControl
+                          placeholder="E.g Admission letter"
+                        />
+                      </c-input-group>
+
+                      <div class="d-grid">
+                        <button
+                          cButton
+                          type="button"
+                          class="text-white"
+                          color="primary"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </form>
+                  </c-col>
+                </c-row>
+              </c-card-body>
+            </c-card>
+          </c-col>
+          <c-col sm="7">
+            <h6 style="text-align: center">Added Items/Particulars</h6>
+            <mat-list role="list">
+              @for (item of checkList; track $index) {
+              <mat-list-item>{{ $index + 1 + ". " + item.name }}</mat-list-item>
+              }
+            </mat-list>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-tab-pane>
+</c-tab-content>

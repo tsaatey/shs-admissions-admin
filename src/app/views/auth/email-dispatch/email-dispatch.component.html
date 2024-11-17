@@ -1,0 +1,95 @@
+<div
+  class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center"
+>
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="7" md="9" xl="6">
+        <c-card class="mx-4">
+          <c-card-body class="p-4">
+            <c-row>
+              <c-col sm="12" class="d-flex justify-content-center">
+                <img
+                  cImg
+                  fluid
+                  src="../../../../assets/brand/gmail.svg"
+                  alt=""
+                  srcset=""
+                  style="width: 80px; height: 80px"
+                />
+              </c-col>
+            </c-row>
+            <c-row>
+              <c-col sm="12" class="d-flex justify-content-center">
+                <h6>Account Confirmation</h6>
+              </c-col>
+            </c-row>
+            <c-row>
+              <c-col sm="12" class="d-flex justify-content-center">
+                <p style="text-align: center">
+                  We have sent an email to
+                  <span style="color: #20a8d8; font-weight: 500">
+                    {{ "name@email.com" }}</span
+                  >
+                  that contains a verification code to confirm the validity of
+                  your email address. After receiving the email, enter the code
+                  below.
+                </p>
+              </c-col>
+            </c-row>
+            <c-row>
+              <c-col sm="12">
+                <code-input
+                  [isCodeHidden]="false"
+                  [codeLength]="6"
+                  (codeCompleted)="onCodeCompleted($event)"
+                  [disabled]="(loading | async) === true"
+                ></code-input>
+              </c-col>
+            </c-row>
+            @if ((loading | async) === true) {
+            <c-row>
+              <c-col sm="12" class="d-flex justify-content-center p-4">
+                <mat-progress-spinner
+                  diameter="40"
+                  strokeWidth="25"
+                  mode="indeterminate"
+                ></mat-progress-spinner>
+              </c-col>
+            </c-row>
+            }
+            <c-row>
+              <c-col sm="12" class="d-flex justify-content-center p-2">
+                <p>
+                  Request for new code in
+                  <span class="text-danger">{{ timer }}</span> seconds
+                </p>
+              </c-col>
+            </c-row>
+            <c-row>
+              <c-col sm="12" class="d-flex justify-content-center">
+                <button
+                  type="button"
+                  class="btn btn-secondary text-white"
+                  [disabled]="!canRequestNewCode"
+                  (click)="requestNewCode()"
+                >
+                  <span *ngIf="(requestingCode | async) === false"
+                    >Send new code</span
+                  >
+                  <span *ngIf="(requestingCode | async) === true"
+                    ><mat-progress-spinner
+                      diameter="25"
+                      strokeWidth="4"
+                      mode="indeterminate"
+                    ></mat-progress-spinner
+                    >&nbsp;Send new code</span
+                  >
+                </button>
+              </c-col>
+            </c-row>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>

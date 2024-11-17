@@ -1,0 +1,29 @@
+import { Component } from '@angular/core';
+import {
+  CardComponent,
+  CardBodyComponent,
+  RowComponent,
+  ColComponent,
+  FormModule,
+  ButtonDirective,
+  NavModule,
+  TabsModule,
+} from '@coreui/angular';
+
+@Component({
+  selector: 'app-manual-admission',
+  standalone: true,
+  imports: [
+    CardComponent,
+    CardBodyComponent,
+    RowComponent,
+    ColComponent,
+    FormModule,
+    ButtonDirective,
+    NavModule,
+    TabsModule,
+  ],
+  templateUrl: './manual-admission.component.html',
+  styleUrl: './manual-admission.component.scss',
+})
+export class ManualAdmissionComponent {}

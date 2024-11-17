@@ -1,0 +1,319 @@
+<c-nav variant="tabs">
+  <a [active]="true" [cTabContent]="tabContent" [tabPaneIdx]="0" cNavLink
+    >Logo & Nickname</a
+  >
+  <a [cTabContent]="tabContent" [tabPaneIdx]="1" cNavLink>Photos</a>
+  <a [cTabContent]="tabContent" [tabPaneIdx]="2" cNavLink>Houses</a>
+</c-nav>
+<c-tab-content #tabContent="cTabContent">
+  <c-tab-pane class="p-3">
+    <c-card>
+      <c-card-body>
+        <c-row>
+          <c-col sm="5">
+            <c-card class="mb-4">
+              <c-card-body>
+                <form cForm>
+                  <div class="mb-3">
+                    <label cLabel for="photo">Select logo</label>
+                    <input
+                      cFormControl
+                      type="file"
+                      accept=".png, .jpg, .jpeg, .tiff"
+                    />
+                  </div>
+                  <div class="d-grid">
+                    <button
+                      cButton
+                      type="button"
+                      class="text-white"
+                      color="primary"
+                    >
+                      Upload
+                    </button>
+                  </div>
+                </form>
+              </c-card-body>
+            </c-card>
+          </c-col>
+          <c-col sm="7" class="d-flex justify-content-end">
+            <img
+              cImg
+              height="200"
+              rounded
+              src="assets/img/angular400.jpg"
+              thumbnail
+              width="200"
+            />
+          </c-col>
+        </c-row>
+        <div style="height: 40px"></div>
+        <c-row>
+          <c-col sm="5">
+            <c-card>
+              <c-card-body>
+                <form cForm>
+                  <label cLabel for="nickName">Nickname/Abbreviation</label>
+                  <c-input-group class="mb-3">
+                    <input
+                      type="text"
+                      id="nickName"
+                      cFormControl
+                      placeholder="E.g ADASCO"
+                    />
+                  </c-input-group>
+                  <div class="d-grid">
+                    <button
+                      cButton
+                      type="button"
+                      class="text-white"
+                      color="primary"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </form>
+              </c-card-body>
+            </c-card>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-tab-pane>
+  <c-tab-pane class="p-3">
+    <c-card>
+      <c-card-body>
+        <c-row>
+          <c-col sm="12">
+            <c-row>
+              <c-col sm="5">
+                <c-card>
+                  <c-card-body>
+                    <form cForm>
+                      <label cLabel for="photo">Select photo to upload</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="file"
+                          id="photo"
+                          cFormControl
+                          accept=".png, .jpg, .jpeg, .tiff"
+                        />
+                      </c-input-group>
+                      <div class="d-grid">
+                        <button
+                          cButton
+                          type="button"
+                          class="text-white"
+                          color="primary"
+                        >
+                          Upload
+                        </button>
+                      </div>
+                    </form>
+                  </c-card-body>
+                </c-card>
+              </c-col>
+              <c-col sm="7">
+                <table mat-table [dataSource]="dataSource">
+                  <!-- Position Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.name }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="preview">
+                    <th mat-header-cell *matHeaderCellDef>Preview</th>
+                    <td mat-cell *matCellDef="let element">
+                      <c-avatar
+                        shape="rounded-0"
+                        [size]="'md'"
+                        src="./assets/images/avatars/8.jpg"
+                        status="success"
+                        textColor="primary"
+                        alt="School image"
+                      />
+                    </td>
+                  </ng-container>
+
+                  <!-- Ellipse menu Column -->
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let element">
+                      <span [matMenuTriggerFor]="menu">
+                        <mat-icon role="button">more_vert</mat-icon>
+                      </span>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                          <mat-icon>preview</mat-icon>
+                          <span>&nbsp;View</span>
+                        </button>
+                        <button mat-menu-item>
+                          <mat-icon>delete_forever</mat-icon>
+                          <span>&nbsp;Delete</span>
+                        </button>
+                      </mat-menu>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="photoColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: photoColumns"></tr>
+                </table>
+                <mat-paginator
+                  showFirstLastButtons=""
+                  [pageSizeOptions]="[20, 40, 60]"
+                  aria-label="Select page"
+                  [style.marginTop]="'16px'"
+                >
+                </mat-paginator>
+              </c-col>
+            </c-row>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-tab-pane>
+  <c-tab-pane class="p-3">
+    <c-card>
+      <c-card-body>
+        <c-row>
+          <c-col sm="5">
+            <c-card>
+              <c-card-body>
+                <form cForm>
+                  <label cLabel for="houseName">House name</label>
+                  <c-input-group class="mb-3">
+                    <input
+                      type="text"
+                      id="houseName"
+                      cFormControl
+                      placeholder="E.g House One"
+                    />
+                  </c-input-group>
+
+                  <label cLabel for="houseName">House number</label>
+                  <c-input-group class="mb-3">
+                    <input
+                      type="text"
+                      id="houseNumber"
+                      cFormControl
+                      placeholder="E.g 1"
+                    />
+                  </c-input-group>
+
+                  <label cLabel for="houseMaster">House master</label>
+                  <c-input-group class="mb-3">
+                    <input
+                      type="text"
+                      id="houseMaster"
+                      cFormControl
+                      placeholder="E.g John Doe"
+                    />
+                  </c-input-group>
+
+                  <label cLabel for="houseMistress">House mistress</label>
+                  <c-input-group class="mb-3">
+                    <input
+                      type="text"
+                      id="houseMistress"
+                      cFormControl
+                      placeholder="E.g Jane Doe"
+                    />
+                  </c-input-group>
+
+                  <label cLabel for="houseSex">Sex</label>
+                  <c-input-group class="mb-3">
+                    <select id="houseSex" cSelect>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Unisex">Unisex</option>
+                    </select>
+                  </c-input-group>
+
+                  <div class="d-grid">
+                    <button
+                      cButton
+                      type="button"
+                      class="text-white"
+                      color="primary"
+                    >
+                      Create House
+                    </button>
+                  </div>
+                </form>
+              </c-card-body>
+            </c-card>
+          </c-col>
+          <c-col sm="7">
+            <table mat-table [dataSource]="houseDataSource">
+              <!-- House name Column -->
+              <ng-container matColumnDef="houseName">
+                <th mat-header-cell *matHeaderCellDef>House name</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.houseName }}
+                </td>
+              </ng-container>
+
+              <!-- House master Column -->
+              <ng-container matColumnDef="houseMaster">
+                <th mat-header-cell *matHeaderCellDef>House master</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.houseMaster }}
+                </td>
+              </ng-container>
+
+              <!-- House mistress Column -->
+              <ng-container matColumnDef="houseMistress">
+                <th mat-header-cell *matHeaderCellDef>House mistress</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.houseMistress }}
+                </td>
+              </ng-container>
+
+              <!-- House sex Column -->
+              <ng-container matColumnDef="sex">
+                <th mat-header-cell *matHeaderCellDef>House sex</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.houseMistress }}
+                </td>
+              </ng-container>
+
+              <!-- Ellipse menu Column -->
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-cell *matCellDef="let element">
+                  <span [matMenuTriggerFor]="menu">
+                    <mat-icon role="button">more_vert</mat-icon>
+                  </span>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item>
+                      <mat-icon>edit</mat-icon>
+                      <span>&nbsp;Edit</span>
+                    </button>
+                    <button mat-menu-item>
+                      <mat-icon>delete_forever</mat-icon>
+                      <span>&nbsp;Delete</span>
+                    </button>
+                  </mat-menu>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="houseColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: houseColumns"></tr>
+            </table>
+            <mat-paginator
+              showFirstLastButtons=""
+              [pageSizeOptions]="[20, 40, 60]"
+              aria-label="Select page"
+              [style.marginTop]="'16px'"
+              #housePaginator
+            >
+            </mat-paginator>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-tab-pane>
+</c-tab-content>

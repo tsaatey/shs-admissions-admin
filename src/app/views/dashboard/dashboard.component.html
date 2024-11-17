@@ -1,0 +1,28 @@
+<app-widgets-dropdown />
+<c-card class="my-4">
+  <c-card-body>
+    <c-row>
+      <c-col sm="5">
+        <h4 class="card-title mb-0" id="traffic">Enrollment Distribution</h4>
+        <div class="small text-body-secondary">
+          {{ academicYear + " Admission Session" }}
+        </div>
+      </c-col>
+    </c-row>
+    <c-chart type="polarArea" [data]="chartPolarAreaData" [options]="options" />
+  </c-card-body>
+</c-card>
+
+<c-card class="my-4">
+  <c-card-body>
+    <c-row>
+      <c-col sm="5">
+        <h4 class="card-title mb-0" id="traffic">Revenue</h4>
+        <div class="small text-body-secondary">
+          {{ academicYear + " Admission Session" }}
+        </div>
+      </c-col>
+    </c-row>
+    <c-chart type="bar" [data]="chartBarData" [options]="options" />
+  </c-card-body>
+</c-card>
