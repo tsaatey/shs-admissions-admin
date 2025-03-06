@@ -8,6 +8,7 @@ import {
   ButtonDirective,
   NavModule,
   TabsModule,
+  CardHeaderComponent,
 } from '@coreui/angular';
 
 @Component({
@@ -16,6 +17,7 @@ import {
   imports: [
     CardComponent,
     CardBodyComponent,
+    CardHeaderComponent,
     RowComponent,
     ColComponent,
     FormModule,

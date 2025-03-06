@@ -10,6 +10,7 @@ import {
   NavModule,
   TabsModule,
   FormModule,
+  CardHeaderComponent,
 } from '@coreui/angular';
 import { MatListModule } from '@angular/material/list';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,6 +24,7 @@ import { MatDialog } from '@angular/material/dialog';
     ButtonDirective,
     CardComponent,
     CardBodyComponent,
+    CardHeaderComponent,
     NavModule,
     TabsModule,
     FormModule,

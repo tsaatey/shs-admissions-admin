@@ -1,15 +1,66 @@
 <app-widgets-dropdown />
-<c-card class="my-4">
+<!-- <c-card class="my-4">
   <c-card-body>
     <c-row>
       <c-col sm="5">
-        <h4 class="card-title mb-0" id="traffic">Enrollment Distribution</h4>
+        <h4 class="card-title mb-0" id="traffic">Admission Statistics</h4>
         <div class="small text-body-secondary">
           {{ academicYear + " Admission Session" }}
         </div>
       </c-col>
     </c-row>
     <c-chart type="polarArea" [data]="chartPolarAreaData" [options]="options" />
+  </c-card-body>
+</c-card> -->
+
+<c-card class="my-4">
+  <c-card-body>
+    <c-row>
+      <c-col sm="12">
+        <c-row>
+          <c-col sm="5">
+            <h4 class="card-title mb-0" id="traffic">Placement Distribution</h4>
+            <div class="small text-body-secondary">
+              {{ academicYear + " Admission Session" }}
+            </div>
+          </c-col>
+        </c-row>
+        <c-row>
+          <c-col sm="6">
+            <c-chart
+              type="bar"
+              [data]="placementByProgramme"
+              [options]="options"
+            />
+          </c-col>
+          <c-col sm="6">
+            <c-chart
+              type="bar"
+              [data]="placementByGender"
+              [options]="options"
+            />
+          </c-col>
+        </c-row>
+      </c-col>
+    </c-row>
+  </c-card-body>
+</c-card>
+
+<c-card class="my-4">
+  <c-card-body>
+    <c-row>
+      <c-col sm="5">
+        <h4 class="card-title mb-0" id="traffic">Gender Distribution</h4>
+        <div class="small text-body-secondary">
+          {{ academicYear + " Admission Session" }}
+        </div>
+      </c-col>
+    </c-row>
+    <c-chart
+      type="bar"
+      [data]="placementByProgrammeAndGender"
+      [options]="placementByResidencyOptions"
+    />
   </c-card-body>
 </c-card>
 
