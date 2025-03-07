@@ -11,17 +11,16 @@ import { ChartjsComponent } from '@coreui/angular-chartjs';
 import { WidgetsDropdownComponent } from '../widgets/widgets-dropdown/widgets-dropdown.component';
 
 @Component({
-  templateUrl: 'dashboard.component.html',
-  styleUrls: ['dashboard.component.scss'],
-  standalone: true,
-  imports: [
-    WidgetsDropdownComponent,
-    CardComponent,
-    CardBodyComponent,
-    RowComponent,
-    ColComponent,
-    ChartjsComponent,
-  ],
+    templateUrl: 'dashboard.component.html',
+    styleUrls: ['dashboard.component.scss'],
+    imports: [
+        WidgetsDropdownComponent,
+        CardComponent,
+        CardBodyComponent,
+        RowComponent,
+        ColComponent,
+        ChartjsComponent,
+    ]
 })
 export class DashboardComponent implements OnInit {
   public academicYear = '2024/2025';

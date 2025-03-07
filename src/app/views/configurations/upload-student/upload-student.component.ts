@@ -10,18 +10,17 @@ import {
 } from '@coreui/angular';
 
 @Component({
-  selector: 'app-upload-student',
-  standalone: true,
-  imports: [
-    CardComponent,
-    CardBodyComponent,
-    RowComponent,
-    ColComponent,
-    ButtonDirective,
-    FormModule,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './upload-student.component.html',
-  styleUrl: './upload-student.component.scss',
+    selector: 'app-upload-student',
+    imports: [
+        CardComponent,
+        CardBodyComponent,
+        RowComponent,
+        ColComponent,
+        ButtonDirective,
+        FormModule,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './upload-student.component.html',
+    styleUrl: './upload-student.component.scss'
 })
 export class UploadStudentComponent {}

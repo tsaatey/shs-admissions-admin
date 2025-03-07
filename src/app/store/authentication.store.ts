@@ -1,5 +1,15 @@
 import { SignupDto } from '../interfaces/sign-up.interface';
-import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
+import {
+  signalStore,
+  withState,
+  withMethods,
+  patchState,
+  withHooks,
+  watchState,
+  getState,
+} from '@ngrx/signals';
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
+import { effect } from '@angular/core';
 
 export interface AuthenticationStateModel {
   authenticated: boolean;
@@ -24,7 +34,9 @@ const initialState: AuthenticationStateModel = {
 };
 
 export const AuthStore = signalStore(
-  withState(initialState),
+  { providedIn: 'root' },
+  withDevtools('auth'),
+  withState(loadInitialState),
   withMethods((store) => ({
     setAuthenticated(authenticated: boolean) {
       patchState(store, { authenticated });
@@ -52,6 +64,29 @@ export const AuthStore = signalStore(
     },
     reset() {
       patchState(store, initialState);
+      localStorage.removeItem('authState');
     },
-  }))
+  })),
+  withHooks({
+    onInit(store) {
+      effect(() => {
+        const state = getState(store);
+        saveStateToStorage(state);
+      }),
+        watchState(store, (state) => {
+          console.log('Auth', state);
+        });
+    },
+  })
 );
+
+// Load from localStorage
+function loadInitialState(): AuthenticationStateModel {
+  const storedState = localStorage.getItem('authState');
+  return storedState ? JSON.parse(storedState) : initialState;
+}
+
+// Save state to localStorage
+function saveStateToStorage(state: AuthenticationStateModel) {
+  localStorage.setItem('authState', JSON.stringify(state));
+}

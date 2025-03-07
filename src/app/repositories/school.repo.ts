@@ -19,12 +19,12 @@ export class SchoolRepository {
   ): Promise<{ success: boolean; message: string; data?: School }> {
     return new Promise((resolve, reject) => {
       this.schoolMgtService.getSchoolInformation(schoolId).subscribe({
-        next: (response: ApiResponseDto<SchoolDto>) => {
+        next: (response: any) => {
           // Success
           resolve({
             success: true,
             message: 'Success',
-            data: new School(response.result),
+            data: new School(response),
           });
         },
         error: (error: HttpErrorResponse) => {

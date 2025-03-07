@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ViewChild, viewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  ViewChild,
+  viewChild,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
@@ -17,10 +23,10 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { SessionStateStore } from '../../../store/session.store';
 
 @Component({
   selector: 'app-school-config',
-  standalone: true,
   imports: [
     FormModule,
     ReactiveFormsModule,
@@ -75,6 +81,8 @@ export class SchoolConfigComponent implements AfterViewInit {
       sex: 'Unisex',
     },
   ]);
+
+  readonly sessionStore = inject(SessionStateStore);
 
   constructor() {}
 

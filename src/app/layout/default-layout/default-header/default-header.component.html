@@ -70,7 +70,10 @@
       <c-avatar
         shape="rounded-1"
         [size]="'md'"
-        src="./assets/images/avatars/8.jpg"
+        src="{{
+          sessionStore.sessionSchool().logoUrl ||
+            './assets/images/avatars/8.jpg'
+        }}"
         status="success"
         textColor="primary"
         alt="User avatar"
@@ -88,11 +91,11 @@
       <li>
         <a cDropdownItem routerLink="">
           <svg cIcon class="me-2" name="cilLockLocked"></svg>
-          Change Password
+          Change password
         </a>
       </li>
       <li>
-        <a cDropdownItem routerLink="">
+        <a cDropdownItem role="button" (click)="logout()">
           <svg cIcon class="me-2" name="cilAccountLogout"></svg>
           Logout
         </a>

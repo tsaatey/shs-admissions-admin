@@ -1,6 +1,15 @@
 import { User } from '../models/user.model';
 import { School } from '../models/school.model';
-import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
+import {
+  signalStore,
+  withState,
+  withMethods,
+  patchState,
+  withHooks,
+  watchState,
+  getState,
+} from '@ngrx/signals';
+import { effect } from '@angular/core';
 
 interface SessionStateModel {
   sessionUser: User;
@@ -8,14 +17,15 @@ interface SessionStateModel {
   sessionRoles: string[];
 }
 
-const initiateState: SessionStateModel = {
+const initialState: SessionStateModel = {
   sessionUser: {} as User,
   sessionSchool: {} as School,
   sessionRoles: [],
 };
 
 export const SessionStateStore = signalStore(
-  withState(initiateState),
+  { providedIn: 'root' },
+  withState(loadInitialState),
   withMethods((store) => ({
     setSessionUser(sessionUser: User) {
       patchState(store, { sessionUser });
@@ -24,10 +34,35 @@ export const SessionStateStore = signalStore(
       patchState(store, { sessionSchool });
     },
     setSessionRoles(sessionRoles: string[]) {
-      patchState(store, { sessionRoles });
+      patchState(store, (state) => ({
+        sessionRoles: { ...state.sessionRoles, sessionRoles },
+      }));
     },
     reset() {
-      patchState(store, initiateState);
+      patchState(store, initialState);
+      localStorage.removeItem('sessionState');
     },
-  }))
+  })),
+  withHooks({
+    onInit(store) {
+      effect(() => {
+        const state = getState(store);
+        saveStateToStorage(state);
+      }),
+        watchState(store, (state) => {
+          console.log('Session', state);
+        });
+    },
+  })
 );
+
+// Load from localStorage
+function loadInitialState(): SessionStateModel {
+  const storedState = localStorage.getItem('sessionState');
+  return storedState ? JSON.parse(storedState) : initialState;
+}
+
+// Save state to localStorage
+function saveStateToStorage(state: SessionStateModel) {
+  localStorage.setItem('sessionState', JSON.stringify(state));
+}

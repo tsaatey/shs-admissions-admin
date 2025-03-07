@@ -12,21 +12,20 @@ import {
 } from '@coreui/angular';
 
 @Component({
-  selector: 'app-not-enrolled-students',
-  standalone: true,
-  imports: [
-    CardComponent,
-    CardBodyComponent,
-    RowComponent,
-    ColComponent,
-    MatIconModule,
-    ButtonDirective,
-    FormModule,
-    MatTableModule,
-    MatPaginatorModule,
-  ],
-  templateUrl: './not-enrolled-students.component.html',
-  styleUrl: './not-enrolled-students.component.scss',
+    selector: 'app-not-enrolled-students',
+    imports: [
+        CardComponent,
+        CardBodyComponent,
+        RowComponent,
+        ColComponent,
+        MatIconModule,
+        ButtonDirective,
+        FormModule,
+        MatTableModule,
+        MatPaginatorModule,
+    ],
+    templateUrl: './not-enrolled-students.component.html',
+    styleUrl: './not-enrolled-students.component.scss'
 })
 export class NotEnrolledStudentsComponent {
   public academicYear = '2024/2025';

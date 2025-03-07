@@ -7,7 +7,7 @@
         <c-card-group>
           <c-card class="p-4">
             <c-card-body>
-              <form cForm [formGroup]="loginForm">
+              <form cForm [formGroup]="loginForm" (ngSubmit)="onLogin()">
                 <h4>Login</h4>
                 <p class="text-body-secondary">Sign in to your account</p>
                 <c-input-group class="mb-3">
@@ -15,7 +15,6 @@
                     <svg cIcon name="cilUser"></svg>
                   </span>
                   <input
-                    autoComplete="email"
                     cFormControl
                     formControlName="email"
                     placeholder="email"
@@ -26,7 +25,6 @@
                     <svg cIcon name="cilLockLocked"></svg>
                   </span>
                   <input
-                    autoComplete="current-password"
                     cFormControl
                     placeholder="Password"
                     type="password"
@@ -35,8 +33,17 @@
                 </c-input-group>
                 <c-row>
                   <c-col xs="6">
-                    <button cButton class="px-4 text-white" color="primary">
-                      Login
+                    <button
+                      cButton
+                      type="submit"
+                      class="px-4 text-white"
+                      color="primary"
+                      [disabled]="loginForm.invalid"
+                    >
+                      <span *ngIf="(loading | async) === false">Login</span>
+                      <span *ngIf="(loading | async) === true"
+                        >Verifying...</span
+                      >
                     </button>
                   </c-col>
                   <c-col class="text-right" xs="6">

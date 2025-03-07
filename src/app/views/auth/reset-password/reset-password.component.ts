@@ -19,22 +19,17 @@ import { IconDirective } from '@coreui/icons-angular';
 
 @Component({
   selector: 'app-reset-password',
-  standalone: true,
   imports: [
     ContainerComponent,
     RowComponent,
     ColComponent,
-    CardGroupComponent,
     TextColorDirective,
     CardComponent,
     CardBodyComponent,
     FormDirective,
     InputGroupComponent,
-    InputGroupTextDirective,
-    IconDirective,
     FormControlDirective,
     ButtonDirective,
-    NgStyle,
     RouterModule,
   ],
   templateUrl: './reset-password.component.html',

@@ -10,13 +10,10 @@ import { environment } from '../../environments/environment';
 export class SchoolManagementService {
   constructor(private httpClient: HttpClient) {}
 
-  public getSchoolInformation(schoolId: any): Observable<ApiResponseDto<any>> {
-    return this.httpClient.get<ApiResponseDto<any>>(
-      `${environment.baseUrl}/school/info`,
-      {
-        params: { schoolId },
-      }
-    );
+  public getSchoolInformation(schoolId: any): Observable<any> {
+    return this.httpClient.get<any>(`${environment.baseUrl}/school/info`, {
+      params: { schoolId },
+    });
   }
 
   public updateSChoolInformation(

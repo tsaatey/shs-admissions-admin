@@ -35,6 +35,7 @@ export class AuthenticationBloc {
     return new Promise((resolve, reject) => {
       this.authService.login(email, password).subscribe({
         next: (response: any) => {
+          // console.log(response);
           if (response.hasOwnProperty('accessToken')) {
             const res = new LoginResponse(response as LoginResponseDto);
 

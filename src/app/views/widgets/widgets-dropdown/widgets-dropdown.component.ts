@@ -26,27 +26,26 @@ import {
 } from '@coreui/angular';
 
 @Component({
-  selector: 'app-widgets-dropdown',
-  templateUrl: './widgets-dropdown.component.html',
-  styleUrls: ['./widgets-dropdown.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
-  standalone: true,
-  imports: [
-    RowComponent,
-    ColComponent,
-    WidgetStatAComponent,
-    TemplateIdDirective,
-    IconDirective,
-    ThemeDirective,
-    DropdownComponent,
-    ButtonDirective,
-    DropdownToggleDirective,
-    DropdownMenuDirective,
-    DropdownItemDirective,
-    RouterLink,
-    DropdownDividerDirective,
-    ChartjsComponent,
-  ],
+    selector: 'app-widgets-dropdown',
+    templateUrl: './widgets-dropdown.component.html',
+    styleUrls: ['./widgets-dropdown.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default,
+    imports: [
+        RowComponent,
+        ColComponent,
+        WidgetStatAComponent,
+        TemplateIdDirective,
+        IconDirective,
+        ThemeDirective,
+        DropdownComponent,
+        ButtonDirective,
+        DropdownToggleDirective,
+        DropdownMenuDirective,
+        DropdownItemDirective,
+        RouterLink,
+        DropdownDividerDirective,
+        ChartjsComponent,
+    ]
 })
 export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
@@ -218,11 +217,9 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 }
 
 @Component({
-  selector: 'app-chart-sample',
-  template:
-    '<c-chart type="line" [data]="data" [options]="options" width="300" #chart></c-chart>',
-  standalone: true,
-  imports: [ChartjsComponent],
+    selector: 'app-chart-sample',
+    template: '<c-chart type="line" [data]="data" [options]="options" width="300" #chart></c-chart>',
+    imports: [ChartjsComponent]
 })
 export class ChartSample implements AfterViewInit {
   constructor() {}

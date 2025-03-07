@@ -16,23 +16,22 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-admission-config',
-  standalone: true,
-  imports: [
-    RowComponent,
-    ColComponent,
-    ButtonDirective,
-    CardComponent,
-    CardBodyComponent,
-    CardHeaderComponent,
-    NavModule,
-    TabsModule,
-    FormModule,
-    ReactiveFormsModule,
-    MatListModule,
-  ],
-  templateUrl: './admission-config.component.html',
-  styleUrl: './admission-config.component.scss',
+    selector: 'app-admission-config',
+    imports: [
+        RowComponent,
+        ColComponent,
+        ButtonDirective,
+        CardComponent,
+        CardBodyComponent,
+        CardHeaderComponent,
+        NavModule,
+        TabsModule,
+        FormModule,
+        ReactiveFormsModule,
+        MatListModule,
+    ],
+    templateUrl: './admission-config.component.html',
+    styleUrl: './admission-config.component.scss'
 })
 export class AdmissionConfigComponent {
   public checkList = [

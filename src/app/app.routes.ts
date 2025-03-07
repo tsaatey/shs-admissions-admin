@@ -2,6 +2,7 @@ import { ResetPasswordComponent } from './views/auth/reset-password/reset-passwo
 import { ForgotPasswordComponent } from './views/auth/forgot-password/forgot-password.component';
 import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   // Default route should redirect to the login page
@@ -60,6 +61,7 @@ export const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [authGuard],
     data: {
       title: 'Home',
     },

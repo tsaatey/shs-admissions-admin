@@ -14,22 +14,21 @@ import { BehaviorSubject } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-email-dispatch',
-  standalone: true,
-  imports: [
-    ContainerComponent,
-    RowComponent,
-    ColComponent,
-    CardComponent,
-    CardBodyComponent,
-    RouterModule,
-    FormModule,
-    CodeInputModule,
-    CommonModule,
-    MatProgressSpinnerModule,
-  ],
-  templateUrl: './email-dispatch.component.html',
-  styleUrl: './email-dispatch.component.scss',
+    selector: 'app-email-dispatch',
+    imports: [
+        ContainerComponent,
+        RowComponent,
+        ColComponent,
+        CardComponent,
+        CardBodyComponent,
+        RouterModule,
+        FormModule,
+        CodeInputModule,
+        CommonModule,
+        MatProgressSpinnerModule,
+    ],
+    templateUrl: './email-dispatch.component.html',
+    styleUrl: './email-dispatch.component.scss'
 })
 export class EmailDispatchComponent implements OnInit {
   public loading = new BehaviorSubject<boolean>(false);

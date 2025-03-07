@@ -12,21 +12,20 @@ import {
 } from '@coreui/angular';
 
 @Component({
-  selector: 'app-admitted-students',
-  standalone: true,
-  imports: [
-    CardComponent,
-    CardBodyComponent,
-    RowComponent,
-    ColComponent,
-    MatIconModule,
-    ButtonDirective,
-    FormModule,
-    MatTableModule,
-    MatPaginatorModule,
-  ],
-  templateUrl: './admitted-students.component.html',
-  styleUrl: './admitted-students.component.scss',
+    selector: 'app-admitted-students',
+    imports: [
+        CardComponent,
+        CardBodyComponent,
+        RowComponent,
+        ColComponent,
+        MatIconModule,
+        ButtonDirective,
+        FormModule,
+        MatTableModule,
+        MatPaginatorModule,
+    ],
+    templateUrl: './admitted-students.component.html',
+    styleUrl: './admitted-students.component.scss'
 })
 export class AdmittedStudentsComponent {
   public academicYear = '2024/2025';

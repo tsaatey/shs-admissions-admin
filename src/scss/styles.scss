@@ -15,12 +15,11 @@
 // Some temp fixes
 //@import "fixes";
 
-// If you want to add custom CSS you can put it here.
-@import "custom";
-
-// Examples
-// We use those styles to show code examples, you should remove them in your application.
-@import "examples";
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

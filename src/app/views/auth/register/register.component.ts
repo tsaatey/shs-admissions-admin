@@ -12,21 +12,20 @@ import {
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
-  standalone: true,
-  imports: [
-    ContainerComponent,
-    RowComponent,
-    ColComponent,
-    CardComponent,
-    CardBodyComponent,
-    InputGroupComponent,
-    FormControlDirective,
-    ButtonDirective,
-    RouterModule,
-  ],
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
+    imports: [
+        ContainerComponent,
+        RowComponent,
+        ColComponent,
+        CardComponent,
+        CardBodyComponent,
+        InputGroupComponent,
+        FormControlDirective,
+        ButtonDirective,
+        RouterModule,
+    ]
 })
 export class RegisterComponent {
   constructor() {}
