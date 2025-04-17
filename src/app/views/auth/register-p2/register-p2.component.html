@@ -6,22 +6,32 @@
       <c-col lg="7" md="9" xl="6">
         <c-card class="mx-4">
           <c-card-body class="p-4">
-            <form cForm>
-              <h6>Almost done...</h6>
+            <form cForm [formGroup]="form" (ngSubmit)="onCreateAccount()">
+              <h4>IT & Security</h4>
               <p class="text-body-secondary">
                 Provide ICT Coordinator information and create a strong password
               </p>
               <label cLabel for="firstName">First name</label>
               <c-input-group class="mb-3">
-                <input cFormControl id="firstName" placeholder="E.g. John" />
+                <input
+                  cFormControl
+                  id="firstName"
+                  placeholder="E.g. John"
+                  formControlName="firstName"
+                />
               </c-input-group>
 
               <label cLabel for="lastName">Last name</label>
               <c-input-group class="mb-3">
-                <input cFormControl id="lastName" placeholder="E.g. Doe" />
+                <input
+                  cFormControl
+                  id="lastName"
+                  placeholder="E.g. Doe"
+                  formControlName="lastName"
+                />
               </c-input-group>
 
-              <label cLabel for="middleName">Middle name (optional)</label>
+              <!-- <label cLabel for="middleName">Middle name (optional)</label>
               <c-input-group class="mb-3">
                 <input
                   cFormControl
@@ -29,11 +39,11 @@
                   id="middleName"
                   placeholder="E.g. Kwesi"
                 />
-              </c-input-group>
+              </c-input-group> -->
 
               <label cLabel for="gender">Gender</label>
               <c-input-group class="mb-3">
-                <select cSelect id="gender">
+                <select cSelect id="gender" formControlName="gender">
                   <option value="M">Male</option>
                   <option value="F">Female</option>
                 </select>
@@ -46,6 +56,7 @@
                   type="email"
                   id="email"
                   placeholder="E.g. j_kwesi@yahoo.com"
+                  formControlName="email"
                 />
               </c-input-group>
 
@@ -54,9 +65,20 @@
                 <input
                   cFormControl
                   id="phoneNumber"
-                  placeholder="E.g. 23324255761"
+                  placeholder="E.g. 024255761"
+                  formControlName="phoneNumber"
                 />
               </c-input-group>
+              <div
+                [style.color]="'crimson'"
+                [style.fontSize]="'12px'"
+                *ngIf="
+                  form.get('phoneNumber')?.errors?.invalidPhoneNumber &&
+                  form.get('phoneNumber')?.touched
+                "
+              >
+                Please enter a valid Ghana phone number
+              </div>
 
               <label cLabel for="password">Password</label>
               <c-input-group class="mb-3">
@@ -65,6 +87,7 @@
                   type="password"
                   id="password"
                   placeholder="Enter a strong password"
+                  formControlName="password"
                 />
               </c-input-group>
 
@@ -75,12 +98,22 @@
                   type="password"
                   id="confirmPassword"
                   placeholder="Confirm your password"
+                  formControlName="confirmPassword"
                 />
               </c-input-group>
 
               <div class="d-grid">
-                <button cButton color="primary" class="text-white">
-                  Create Account
+                <button
+                  cButton
+                  type="submit"
+                  color="primary"
+                  class="text-white"
+                  [disabled]="form.invalid || (loading | async) === true"
+                >
+                  <span *ngIf="(loading | async) === false"
+                    >Create Account</span
+                  >
+                  <span *ngIf="(loading | async) === true">Please wait...</span>
                 </button>
               </div>
             </form>

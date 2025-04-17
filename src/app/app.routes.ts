@@ -2,7 +2,12 @@ import { ResetPasswordComponent } from './views/auth/reset-password/reset-passwo
 import { ForgotPasswordComponent } from './views/auth/forgot-password/forgot-password.component';
 import { Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
-import { authGuard } from './guards/auth-guard';
+import {
+  authGuard,
+  confirmAccountGuard,
+  loginGuard,
+  resetPasswordGuard,
+} from './guards/auth-guards';
 
 export const routes: Routes = [
   // Default route should redirect to the login page
@@ -13,6 +18,7 @@ export const routes: Routes = [
 
   {
     path: 'login',
+    canActivate: [loginGuard],
     loadComponent: () =>
       import('./views/auth/login/login.component').then(
         (m) => m.LoginComponent
@@ -34,6 +40,7 @@ export const routes: Routes = [
   },
   {
     path: 'confirm-account',
+    canActivate: [confirmAccountGuard],
     loadComponent: () =>
       import('./views/auth/email-dispatch/email-dispatch.component').then(
         (m) => m.EmailDispatchComponent
@@ -48,6 +55,7 @@ export const routes: Routes = [
   },
   {
     path: 'reset-password',
+    canActivate: [resetPasswordGuard],
     loadComponent: () =>
       import('./views/auth/reset-password/reset-password.component').then(
         (m) => m.ResetPasswordComponent
@@ -92,5 +100,16 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: '**', redirectTo: 'dashboard' },
+  { path: '**', redirectTo: '404' },
+
+  {
+    path: '404',
+    loadComponent: () =>
+      import('./views/pages/page404/page404.component').then(
+        (m) => m.Page404Component
+      ),
+    data: {
+      title: 'Page 404',
+    },
+  },
 ];

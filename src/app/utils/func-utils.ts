@@ -4,6 +4,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Student } from './../models/student.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from '../models/user.model';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { PhoneNumberUtil } from 'google-libphonenumber';
+
+const phoneUtil = PhoneNumberUtil.getInstance();
 
 export function getFormattedStudentForExcel(element: Student) {
   return {
@@ -115,4 +119,35 @@ export function getRolesFromAccessToken(accesstoken: string): string[] {
   const decodedToken = jwtHelper.decodeToken(accesstoken);
 
   return decodedToken['cognito:groups'];
+}
+
+/**
+ * Validates a Ghana phone number and:
+ * - Displays it in readable international format with spaces (e.g., +233 20 537 1240)
+ * - Stores it internally in raw value as +233205371240 (no spaces)
+ */
+export function ghanaPhoneValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const rawValue = control.value;
+
+    if (!rawValue) return null; // handled by required validator
+
+    try {
+      const number = phoneUtil.parse(rawValue, 'GH');
+      const isValid = phoneUtil.isValidNumberForRegion(number, 'GH');
+
+      if (!isValid) return { invalidPhoneNumber: true };
+
+      // If valid, format and replace value with international format
+      let formatted = phoneUtil.format(number, 1); // 1 = INTERNATIONAL
+      // // Remove spaces
+      // formatted = formatted.replace(/\s+/g, '');
+      const digitsOnly = formatted.replace(/\D/g, ''); // e.g. +233249640111 → 233249640111
+      control.setValue(formatted, { emitEvent: false }); // update without re-triggering validator
+
+      return null;
+    } catch (err) {
+      return { invalidPhoneNumber: true };
+    }
+  };
 }

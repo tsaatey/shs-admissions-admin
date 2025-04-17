@@ -1,4 +1,7 @@
-import { SignupDto } from '../interfaces/sign-up.interface';
+import {
+  SchoolSignupDto,
+  UserSignupDto,
+} from '../interfaces/sign-up.interface';
 import {
   signalStore,
   withState,
@@ -19,7 +22,9 @@ export interface AuthenticationStateModel {
   refreshToken: string;
   newDeviceMetadata: string;
   identifier: string;
-  signupData: SignupDto;
+  schoolData: SchoolSignupDto;
+  cordData: UserSignupDto;
+  usr: string;
 }
 
 const initialState: AuthenticationStateModel = {
@@ -30,7 +35,9 @@ const initialState: AuthenticationStateModel = {
   refreshToken: '',
   newDeviceMetadata: '',
   identifier: '',
-  signupData: {} as SignupDto,
+  schoolData: {} as SchoolSignupDto,
+  cordData: {} as UserSignupDto,
+  usr: '',
 };
 
 export const AuthStore = signalStore(
@@ -59,8 +66,14 @@ export const AuthStore = signalStore(
     setIdentifier(identifier: string) {
       patchState(store, { identifier });
     },
-    setSignupData(signupData: SignupDto) {
-      patchState(store, { signupData });
+    setSchoolData(schoolData: SchoolSignupDto) {
+      patchState(store, { schoolData });
+    },
+    setCordData(cordData: UserSignupDto) {
+      patchState(store, { cordData });
+    },
+    setUsr(usr: string) {
+      patchState(store, { usr });
     },
     reset() {
       patchState(store, initialState);
