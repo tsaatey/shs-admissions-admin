@@ -1,0 +1,123 @@
+<h6 mat-dialog-title class="text-primary">Update House</h6>
+<div mat-dialog-content>
+  <c-card>
+    <c-card-body>
+      <form cForm [formGroup]="houseForm">
+        <c-row>
+          <c-col sm="6">
+            <label cLabel for="houseName">House name</label>
+            <c-input-group class="mb-3">
+              <input
+                type="text"
+                id="houseName"
+                cFormControl
+                placeholder="E.g House One"
+                formControlName="houseName"
+              />
+            </c-input-group>
+          </c-col>
+          <c-col sm="6">
+            <label cLabel for="houseNumber">House number</label>
+            <c-input-group class="mb-3">
+              <input
+                type="text"
+                id="houseNumber"
+                cFormControl
+                placeholder="E.g 1"
+                formControlName="houseNumber"
+              />
+            </c-input-group>
+          </c-col>
+        </c-row>
+        <c-row>
+          <c-col sm="6">
+            <label cLabel for="houseMaster">House master</label>
+            <c-input-group class="mb-3">
+              <input
+                type="text"
+                id="houseMaster"
+                cFormControl
+                placeholder="E.g John Doe"
+                formControlName="houseMaster"
+              />
+            </c-input-group>
+          </c-col>
+          <c-col sm="6">
+            <label cLabel for="assistantHouseMaster"
+              >Assistant House master</label
+            >
+            <c-input-group class="mb-3">
+              <input
+                type="text"
+                id="assistantHouseMaster"
+                cFormControl
+                placeholder="E.g John Doe"
+                formControlName="assistantHouseMaster"
+              />
+            </c-input-group>
+          </c-col>
+        </c-row>
+        <c-row>
+          <c-col sm="6">
+            <label cLabel for="houseMistress">House mistress</label>
+            <c-input-group class="mb-3">
+              <input
+                type="text"
+                id="houseMistress"
+                cFormControl
+                placeholder="E.g Jane Doe"
+                formControlName="houseMistress"
+              />
+            </c-input-group>
+          </c-col>
+          <c-col sm="6">
+            <label cLabel for="assistantHouseMistress"
+              >Assistant House mistress</label
+            >
+            <c-input-group class="mb-3">
+              <input
+                type="text"
+                id="assistantHouseMistress"
+                cFormControl
+                placeholder="E.g Jane Doe"
+                formControlName="assistantHouseMistress"
+              />
+            </c-input-group>
+          </c-col>
+        </c-row>
+        <c-row>
+          <c-col sm="6">
+            <label cLabel for="houseSex">Sex</label>
+            <c-input-group class="mb-3">
+              <select id="houseSex" cSelect formControlName="sex">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Unisex">Unisex</option>
+              </select>
+            </c-input-group>
+          </c-col>
+          <c-col sm="6"></c-col>
+        </c-row>
+      </form>
+    </c-card-body>
+  </c-card>
+</div>
+<div mat-dialog-actions align="end">
+  <button
+    mat-stroked-button
+    color="warn"
+    [mat-dialog-close]
+    (click)="onCancel()"
+    [disabled]="(loading | async) === true"
+  >
+    Cancel
+  </button>
+  <button
+    mat-stroked-button
+    class="text-primary"
+    (click)="onUpdateHouse()"
+    [disabled]="(loading | async) === true"
+  >
+    @if ((loading | async) === true) { Updating... } @else { Update }
+  </button>
+</div>

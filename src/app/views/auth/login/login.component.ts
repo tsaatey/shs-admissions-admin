@@ -85,33 +85,17 @@ export class LoginComponent implements OnInit {
         const schoolId = response.user?.school.schoolId;
 
         // Get school
-        const result = await this.schoolRepo.getSchoolInfo(schoolId ?? '');
-        if (result.success) {
-          // Stop loading
-          this.loading.next(false);
+        await this.schoolRepo.getSchoolInfo(schoolId ?? '');
 
-          // Set school user
-          this.sessionStore.setSessionSchool(result.data || ({} as School));
-
-          // Redirect to dashboard
-          setTimeout(() => {
-            this.router.navigate(['dashboard']);
-          }, 500);
-        } else {
-          // Stop loading
-          this.loading.next(false);
-
-          // Display message for failing to get school information
-          this.toastr.error(result.message, 'Cannot Get School');
-
-          // Clear the stores
-          this.util.signOut();
-        }
+        setTimeout(() => {
+          this.router.navigate(['dashboard']);
+        }, 500);
       }
     } catch (error: any) {
       this.loading.next(false);
 
-      console.log(error);
+      // Clear the stores
+      this.util.signOut();
 
       if (error?.message === 'User is not confirmed.') {
         setTimeout(() => {
