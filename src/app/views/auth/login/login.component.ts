@@ -1,13 +1,8 @@
 import { SessionUtilities } from './../../../utils/session.utilities';
 import { SchoolRepository } from './../../../repositories/school.repo';
 import { SessionStateStore } from './../../../store/session.store';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-} from '@angular/core';
-import { CommonModule, NgStyle } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { IconDirective } from '@coreui/icons-angular';
 import {
   ContainerComponent,
@@ -17,23 +12,16 @@ import {
   TextColorDirective,
   CardComponent,
   CardBodyComponent,
-  FormDirective,
   InputGroupComponent,
   InputGroupTextDirective,
   FormControlDirective,
   ButtonDirective,
-  FormModule,
 } from '@coreui/angular';
 import { Router, RouterModule } from '@angular/router';
 import { AuthenticationBloc } from '../../../blocs/auth.bloc';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
-import {
-  FormBuilder,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { School } from '../../../models/school.model';
 import { AuthStore } from '../../../store/authentication.store';
 
@@ -50,17 +38,13 @@ import { AuthStore } from '../../../store/authentication.store';
     TextColorDirective,
     CardComponent,
     CardBodyComponent,
-    FormDirective,
     InputGroupComponent,
     InputGroupTextDirective,
     IconDirective,
     FormControlDirective,
     ButtonDirective,
-    NgStyle,
     RouterModule,
     ReactiveFormsModule,
-    FormModule,
-    FormsModule,
   ],
 })
 export class LoginComponent implements OnInit {
@@ -101,45 +85,32 @@ export class LoginComponent implements OnInit {
         const schoolId = response.user?.school.schoolId;
 
         // Get school
-        const result = await this.schoolRepo.getSchoolInfo(schoolId ?? '');
-        if (result.success) {
-          // Stop loading
-          this.loading.next(false);
+        await this.schoolRepo.getSchoolInfo(schoolId ?? '');
 
-          // Set school user
-          this.sessionStore.setSessionSchool(result.data || ({} as School));
-
-          // Redirect to dashboard (default) for now
-          setTimeout(() => {
-            this.router.navigate(['dashboard']);
-          }, 500);
-        } else {
-          // Stop loading
-          this.loading.next(false);
-
-          // Display message for failing to get school information
-          this.toastr.error(result.message, 'Cannot Get School');
-
-          // Clear the stores
-          this.util.signOut();
-        }
-      } else if (response.success && response.other) {
-        // Redirect to claim account page
-        const data = response.other;
-        const session = data.session;
-        const username = email;
-
-        // Redirect to claim account
-        this.router.navigate(['confirm-account'], {
-          queryParams: { session: session, username: username },
-        });
+        setTimeout(() => {
+          this.router.navigate(['dashboard']);
+        }, 500);
       }
     } catch (error: any) {
       this.loading.next(false);
 
-      // Login failed
-      this.toastr.error(error?.message);
-      // console.log(error);
+      // Clear the stores
+      this.util.signOut();
+
+      if (error?.message === 'User is not confirmed.') {
+        setTimeout(() => {
+          this.toastr.error(
+            `${error?.message}. Redirecting you to confirm account...`
+          );
+          // Redirect to confirm account
+          this.router.navigate(['confirm-account'], {
+            queryParams: { username: email },
+          });
+        }, 500);
+      } else {
+        // Login failed
+        this.toastr.error(error?.message || error?.error);
+      }
     }
   }
 }

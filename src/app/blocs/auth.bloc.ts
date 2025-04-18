@@ -93,7 +93,7 @@ export class AuthenticationBloc {
         error: (error: HttpErrorResponse) => {
           const errorMessage = getErrorMessage(error);
 
-          resolve({ success: false, message: errorMessage });
+          reject({ success: false, message: errorMessage });
         },
       });
     });
@@ -119,7 +119,7 @@ export class AuthenticationBloc {
           },
           error: (error: HttpErrorResponse) => {
             const errorMessage = getErrorMessage(error);
-            resolve({ success: false, message: errorMessage });
+            reject({ success: false, message: errorMessage });
           },
         });
     });
@@ -136,7 +136,7 @@ export class AuthenticationBloc {
         },
         error: (error: HttpErrorResponse) => {
           const errorMessage = getErrorMessage(error);
-          resolve({ success: false, message: errorMessage });
+          reject({ success: false, message: errorMessage });
         },
       });
     });

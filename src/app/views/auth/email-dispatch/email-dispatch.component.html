@@ -28,7 +28,7 @@
                 <p style="text-align: center">
                   We have sent an email to
                   <span style="color: #20a8d8; font-weight: 500">
-                    {{ "name@email.com" }}</span
+                    {{ email || "name@email.com" }}</span
                   >
                   that contains a verification code to confirm the validity of
                   your email address. After receiving the email, enter the code
@@ -71,10 +71,10 @@
                   type="button"
                   class="btn btn-secondary text-white"
                   [disabled]="!canRequestNewCode"
-                  (click)="requestNewCode()"
+                  (click)="requestNewCode(email)"
                 >
                   <span *ngIf="(requestingCode | async) === false"
-                    >Send new code</span
+                    >Request new code</span
                   >
                   <span *ngIf="(requestingCode | async) === true"
                     ><mat-progress-spinner
@@ -82,7 +82,7 @@
                       strokeWidth="4"
                       mode="indeterminate"
                     ></mat-progress-spinner
-                    >&nbsp;Send new code</span
+                    >&nbsp;Request new code</span
                   >
                 </button>
               </c-col>

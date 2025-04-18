@@ -6,7 +6,7 @@
       <c-col lg="7" md="9" xl="6">
         <c-card class="mx-4">
           <c-card-body class="p-4">
-            <form cForm>
+            <form cForm [formGroup]="form" (ngSubmit)="onContinue()">
               <h4>Sign up</h4>
               <p class="text-body-secondary">
                 Create your school account or
@@ -23,6 +23,7 @@
                   cFormControl
                   id="schoolName"
                   placeholder="Name of school"
+                  formControlName="schoolName"
                 />
               </c-input-group>
 
@@ -30,8 +31,9 @@
               <c-input-group class="mb-3">
                 <input
                   cFormControl
-                  id="schoolName"
-                  placeholder="Name of school"
+                  id="schoolCode"
+                  placeholder="School WAEC Code"
+                  formControlName="schoolCode"
                 />
               </c-input-group>
 
@@ -39,8 +41,9 @@
               <c-input-group class="mb-3">
                 <input
                   cFormControl
-                  id="schoolName"
-                  placeholder="Name of school"
+                  id="schoolAddress"
+                  placeholder="Address of school"
+                  formControlName="schoolAddress"
                 />
               </c-input-group>
 
@@ -48,14 +51,21 @@
               <c-input-group class="mb-3">
                 <input
                   cFormControl
-                  id="schoolName"
-                  placeholder="Name of school"
+                  id="schoolLocation"
+                  placeholder="School location"
+                  formControlName="schoolLocation"
                 />
               </c-input-group>
 
               <div class="d-grid">
-                <button cButton color="primary" class="text-white">
-                  Let's go!
+                <button
+                  cButton
+                  type="submit"
+                  color="primary"
+                  class="text-white"
+                  [disabled]="form.invalid"
+                >
+                  Continue
                 </button>
               </div>
             </form>

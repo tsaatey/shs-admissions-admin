@@ -1,6 +1,6 @@
 import { AcademicYear } from '../models/academic-year.model';
 import { School } from './../models/school.model';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { SchoolManagementService } from '../services/school-management.service';
 import { SchoolDto } from '../interfaces/school.dto';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
@@ -9,31 +9,24 @@ import { AcademicYearDto } from '../interfaces/academic-year.dto';
 import { ApiResponseDto } from '../interfaces/api-response.dto';
 import { DocumentDto } from '../interfaces/dtos.interface';
 import { AdmissionLetter } from '../models/admission-letter';
+import { SessionStateStore } from '../store/session.store';
 
 @Injectable({ providedIn: 'root' })
 export class SchoolRepository {
+  private sessionStore = inject(SessionStateStore);
+
   constructor(private schoolMgtService: SchoolManagementService) {}
 
-  public getSchoolInfo(
-    schoolId: string
-  ): Promise<{ success: boolean; message: string; data?: School }> {
+  public getSchoolInfo(schoolId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.schoolMgtService.getSchoolInformation(schoolId).subscribe({
         next: (response: any) => {
           // Success
-          resolve({
-            success: true,
-            message: 'Success',
-            data: new School(response),
-          });
+          resolve(true);
+          this.sessionStore.setSessionSchool(new School(response));
         },
         error: (error: HttpErrorResponse) => {
-          const errorMessage = getErrorMessage(error);
-
-          resolve({
-            success: false,
-            message: errorMessage,
-          });
+          reject(error);
         },
       });
     });
@@ -43,17 +36,17 @@ export class SchoolRepository {
     schoolId: string,
     name: string,
     nickName: string
-  ): Promise<{ success: boolean; message: string }> {
+  ): Promise<any> {
     return new Promise((resolve, reject) => {
+      console.log('Inside repo function');
       this.schoolMgtService
         .updateSChoolInformation(schoolId, name, nickName)
         .subscribe({
           next: (response: ApiResponseDto<any>) => {
-            resolve({ success: true, message: 'success' });
+            resolve(response);
           },
           error: (error: HttpErrorResponse) => {
-            const errorMessage = getErrorMessage(error);
-            resolve({ success: false, message: errorMessage });
+            reject(error);
           },
         });
     });
@@ -63,7 +56,7 @@ export class SchoolRepository {
     return new Promise((resolve, reject) => {
       this.schoolMgtService.getUploadedImages(schoolId).subscribe({
         next: (response: ApiResponseDto<any>) => {
-          resolve(response.result);
+          resolve(response);
         },
         error: (error: HttpErrorResponse) => {
           reject(error);
@@ -85,38 +78,31 @@ export class SchoolRepository {
     });
   }
 
-  public uploadLogo(
-    payload: FormData
-  ): Promise<{ success: boolean; message: string }> {
+  public uploadLogo(payload: FormData): Promise<any> {
     return new Promise((resolve, reject) => {
       this.schoolMgtService.uploadSchoolLogo(payload).subscribe({
         next: (response: ApiResponseDto<any>) => {
-          resolve({ success: true, message: 'success' });
+          resolve(response);
         },
         error: (error: HttpErrorResponse) => {
           const errorMessage = getErrorMessage(error);
-          resolve({ success: false, message: errorMessage });
+          reject(error);
         },
       });
     });
   }
 
-  public getAcademicYears(): Promise<{
-    success: boolean;
-    message: string;
-    data?: AcademicYear[];
-  }> {
+  public getAcademicYears(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.schoolMgtService.getAcademicYears().subscribe({
         next: (response: ApiResponseDto<AcademicYearDto[]>) => {
           const data = response.result.map(
             (year: AcademicYearDto) => new AcademicYear(year)
           );
-          resolve({ success: true, message: 'success', data: data });
+          resolve(data);
         },
         error: (error: HttpErrorResponse) => {
-          const errorMessage = getErrorMessage(error);
-          resolve({ success: false, message: errorMessage });
+          reject(error);
         },
       });
     });

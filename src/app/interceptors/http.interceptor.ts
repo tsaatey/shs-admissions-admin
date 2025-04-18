@@ -45,7 +45,10 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(newRequest).pipe(
       catchError((error: HttpErrorResponse) => {
         // Token has expired
-        if (error.status === HttpStatusCode.Unauthorized) {
+        if (
+          error.status === HttpStatusCode.Unauthorized ||
+          error.status === HttpStatusCode.Forbidden
+        ) {
           // Renew access token and retry the request
           return from(this.sessionUtilities.renewAccessToken()).pipe(
             switchMap(() => {

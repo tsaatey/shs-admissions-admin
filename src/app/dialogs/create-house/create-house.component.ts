@@ -1,0 +1,82 @@
+import { HouseRepo } from './../../repositories/house.repo';
+import { HouseService } from './../../services/house.service';
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  RowComponent,
+  ColComponent,
+  FormModule,
+  CardComponent,
+  CardBodyComponent,
+} from '@coreui/angular';
+import { BehaviorSubject } from 'rxjs';
+import { SessionStateStore } from '../../store/session.store';
+import { HouseDto } from '../../interfaces/dtos.interface';
+
+@Component({
+  selector: 'app-create-house',
+  imports: [
+    MatDialogModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    RowComponent,
+    ColComponent,
+    CommonModule,
+    FormModule,
+    CardComponent,
+    CardBodyComponent,
+  ],
+  templateUrl: './create-house.component.html',
+  styleUrl: './create-house.component.scss',
+})
+export class CreateHouseComponent implements OnInit {
+  public houseForm: any;
+  public loading = new BehaviorSubject<boolean>(false);
+
+  private store = inject(SessionStateStore);
+
+  constructor(
+    private dialogRef: MatDialogRef<CreateHouseComponent>,
+    private formBuilder: FormBuilder,
+    private houseRepo: HouseRepo
+  ) {}
+
+  ngOnInit(): void {
+    // Create house form
+    this.houseForm = this.formBuilder.group({
+      houseName: ['', Validators.required],
+      houseNumber: ['', Validators.required],
+      houseMaster: ['', Validators.nullValidator],
+      houseMistress: ['', Validators.nullValidator],
+      assistantHouseMaster: ['', Validators.nullValidator],
+      assistantHouseMistress: ['', Validators.nullValidator],
+      sex: ['', Validators.required],
+    });
+  }
+
+  async onCreateHouse() {
+    // Start loading
+    this.loading.next(true);
+
+    try {
+      // Contact server
+      await this.houseRepo.addHouse(
+        this.store.sessionSchool().id,
+        this.houseForm.value as HouseDto
+      );
+
+      // Stop loading
+      this.loading.next(false);
+
+      // Close dialog and pass success
+      this.dialogRef.close(true);
+    } catch (error) {}
+  }
+
+  onCancel() {
+    this.dialogRef.close();
+  }
+}
