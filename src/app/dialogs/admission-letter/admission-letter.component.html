@@ -1,0 +1,44 @@
+<h6 mat-dialog-title class="text-primary">Upload Admission Letter</h6>
+<div mat-dialog-content>
+  <c-card>
+    <c-card-body>
+      <c-row>
+        <c-col sm="12">
+          <form cForm>
+            <label cLabel for="admissionLetter"
+              >Admission Letter (MS Word Format Only)</label
+            >
+            <c-input-group class="mb-3">
+              <input
+                type="file"
+                id="admissionLetter"
+                cFormControl
+                accept=".docx, .doc"
+                (change)="onFileChosen($event)"
+              />
+            </c-input-group>
+          </form>
+        </c-col>
+      </c-row>
+    </c-card-body>
+  </c-card>
+</div>
+<div mat-dialog-actions align="end">
+  <button
+    mat-stroked-button
+    color="warn"
+    [mat-dialog-close]
+    (click)="onCancel()"
+    [disabled]="(loading | async) === true"
+  >
+    Cancel
+  </button>
+  <button
+    mat-stroked-button
+    class="text-primary"
+    (click)="onUploadLetter()"
+    [disabled]="(loading | async) === true || (fileChosen | async) === false"
+  >
+    @if ((loading | async) === true) { Uploading... } @else { Upload }
+  </button>
+</div>

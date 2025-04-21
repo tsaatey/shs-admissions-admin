@@ -234,4 +234,25 @@ export class AuthenticationBloc {
       });
     });
   }
+
+  public setCSSPSCredentials(
+    accessToken: string,
+    schoolId: number,
+    schoolCode: string,
+    password: string
+  ): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await this.authService.setCSSPSCredentials(
+          accessToken,
+          schoolId,
+          schoolCode,
+          password
+        );
+        resolve(true);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 }

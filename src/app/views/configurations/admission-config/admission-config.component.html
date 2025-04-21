@@ -11,202 +11,185 @@
     <c-card>
       <c-card-body>
         <c-row>
-          <c-col sm="6">
-            <c-card>
-              <c-card-header>
-                <h6>CSSPS Credentials</h6>
-              </c-card-header>
-              <c-card-body>
-                <c-row>
-                  <c-col sm="12">
-                    <p>
-                      Set your school's
-                      <strong>CSSPS login credentials</strong> as default
-                      authentication parameters for the placement process. Our
-                      system will need it for the purpose of verifying and
-                      retrieving students placed in your school only.
-                    </p>
-                    <form cForm>
-                      <label cLabel for="schoolCode">School code</label>
-                      <c-input-group class="mb-3">
-                        <input
-                          type="text"
-                          id="schoolCode"
-                          cFormControl
-                          placeholder="E.g 0010101"
-                        />
-                      </c-input-group>
-
-                      <label cLabel for="password">Password</label>
-                      <c-input-group class="mb-3">
-                        <input
-                          type="password"
-                          id="password"
-                          cFormControl
-                          placeholder="password for cssps account"
-                        />
-                      </c-input-group>
-
-                      <div class="d-grid">
-                        <button
-                          cButton
-                          type="button"
-                          class="text-white"
-                          color="primary"
-                        >
-                          Save
-                        </button>
-                      </div>
-                    </form>
-                  </c-col>
-                </c-row>
-              </c-card-body>
-            </c-card>
-          </c-col>
-          <c-col sm="6">
-            <c-card>
-              <c-card-header>
-                <h6>Cost of Voucher</h6>
-              </c-card-header>
-              <c-card-body>
-                <c-row>
-                  <c-col sm="12">
-                    <p>
-                      Set the amount of money students must pay as cost of
-                      voucher. Take note that cost of vouchers are school
-                      specific.
-                    </p>
-                    <form cForm>
-                      <label cLabel for="costOfVoucher">Cost of voucher</label>
-                      <c-input-group class="mb-3">
-                        <input
-                          type="number"
-                          id="costOfVoucher"
-                          cFormControl
-                          placeholder="E.g 40"
-                        />
-                      </c-input-group>
-
-                      <div class="d-grid">
-                        <button
-                          cButton
-                          type="button"
-                          class="text-white"
-                          color="primary"
-                        >
-                          Save
-                        </button>
-                      </div>
-                    </form>
-                  </c-col>
-                </c-row>
-              </c-card-body>
-            </c-card>
-          </c-col>
-        </c-row>
-
-        <div style="height: 40px"></div>
-
-        <!-- Admission letter and Admision number pattern -->
-        <c-row>
-          <c-col sm="6">
-            <c-card>
-              <c-card-header>
-                <h6>Admission Letter</h6>
-              </c-card-header>
-              <c-card-body>
-                <c-row>
-                  <c-col sm="12">
-                    <p>
-                      Format the admission letter and insert placeholders into
-                      specific places. Example of a placeholder is the full name
-                      of the student. The system will replace the placeholder
-                      with the actual student name when the online form is
-                      filled. Put the placeholder in-between two curly braces.
-                      E.g. <strong>&lbrace;name&rbrace;.</strong> Click
-                      <span
-                        style="cursor: pointer; text-decoration: underline"
-                        class="text-primary"
-                        (click)="onViewPlaceholders()"
-                        >here</span
+          <c-col sm="12">
+            <table [striped]="true" cTable>
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Config</th>
+                  <th scope="col">Status</th>
+                  <th scope="col" [style.textAlign]="'center'">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    CSSPS Credentials
+                    <mat-icon
+                      class="text-primary"
+                      matTooltip="Click to learn more"
+                      (click)="onLearnMore('cssps_credentials')"
+                      >info</mat-icon
+                    >
+                  </td>
+                  <td>Not set</td>
+                  <td [style.textAlign]="'center'">
+                    <button
+                      mat-stroked-button
+                      class="text-primary custom-button"
+                      (click)="onLaunchCSSPSCrdentialsModal()"
+                    >
+                      Set Now
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>
+                    Admission letter
+                    <mat-icon
+                      class="text-primary"
+                      matTooltip="Click to learn more"
+                      (click)="onViewPlaceholders()"
+                      >info</mat-icon
+                    >
+                  </td>
+                  @if(admissionLetter?.url) {
+                  <td>
+                    Uploaded
+                    <span [matMenuTriggerFor]="menu">
+                      <mat-icon>more_horiz</mat-icon>
+                    </span>
+                    <mat-menu #menu="matMenu">
+                      <button
+                        mat-menu-item
+                        (click)="
+                          onLaunchAdmissionLetterViewer(admissionLetter.url)
+                        "
                       >
-                      for list of supported placeholders.
-                    </p>
-                    <form cForm>
-                      <label cLabel for="admissionLetter"
-                        >Admission Letter (MS Word Format Only)</label
+                        <mat-icon>preview</mat-icon>
+                        <span>&nbsp;View</span>
+                      </button>
+                      <button
+                        mat-menu-item
+                        (click)="onDownloadAdmissionLetter()"
                       >
-                      <c-input-group class="mb-3">
-                        <input
-                          type="file"
-                          id="admissionLetter"
-                          cFormControl
-                          accept=".docx, .doc"
-                        />
-                      </c-input-group>
-
-                      <div class="d-grid">
-                        <button
-                          cButton
-                          type="button"
-                          class="text-white"
-                          color="primary"
-                        >
-                          Upload
-                        </button>
-                      </div>
-                    </form>
-                  </c-col>
-                </c-row>
-              </c-card-body>
-            </c-card>
-          </c-col>
-          <c-col sm="6">
-            <c-card>
-              <c-card-header>
-                <h6>Admission Number Format</h6>
-              </c-card-header>
-              <c-card-body>
-                <c-row>
-                  <c-col sm="12">
-                    <p>
-                      Set the admission number pattern based on which admission
-                      numbers will be generated. Use four aesterisks to indicate
-                      where the serial numbers should be. For example:
-                      <strong>GL/****/24</strong> will be
-                      <strong>GL/0001/24</strong>, &nbsp;
-                      <strong>GL/24/****</strong> will be
-                      <strong>GL/24/0001</strong>, etc. You can omit the
-                      aesterisks if the serial number is at the end.
-                    </p>
-                    <form cForm>
-                      <label cLabel for="admissionNumberPrefix"
-                        >Admission number pattern</label
-                      >
-                      <c-input-group class="mb-3">
-                        <input
-                          type="number"
-                          id="admissionNumberPrefix"
-                          cFormControl
-                          placeholder="E.g GHA****/24"
-                        />
-                      </c-input-group>
-
-                      <div class="d-grid">
-                        <button
-                          cButton
-                          type="button"
-                          class="text-white"
-                          color="primary"
-                        >
-                          Save
-                        </button>
-                      </div>
-                    </form>
-                  </c-col>
-                </c-row>
-              </c-card-body>
-            </c-card>
+                        <mat-icon>download</mat-icon>
+                        <span>&nbsp;Download</span>
+                      </button>
+                    </mat-menu>
+                  </td>
+                  } @else {
+                  <td>Not uploaded</td>
+                  } @if (admissionLetter?.url) {
+                  <td [style.textAlign]="'center'">
+                    <button
+                      mat-stroked-button
+                      class="text-tertiary custom-button"
+                      (click)="onLaunchUploadAdmissionLetterModal()"
+                    >
+                      Change
+                    </button>
+                  </td>
+                  }@else {
+                  <td [style.textAlign]="'center'">
+                    <button
+                      mat-stroked-button
+                      class="text-primary custom-button"
+                      (click)="onLaunchUploadAdmissionLetterModal()"
+                    >
+                      Upload
+                    </button>
+                  </td>
+                  }
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>
+                    Admission number pattern
+                    <mat-icon
+                      class="text-primary"
+                      matTooltip="Click to learn more"
+                      (click)="onLearnMore('admission_number_format')"
+                      >info</mat-icon
+                    >
+                  </td>
+                  @if(admissionNumberPattern) {
+                  <td>
+                    Set to
+                    <span [style.fontWeight]="'bold'">{{
+                      admissionNumberPattern
+                    }}</span>
+                  </td>
+                  }@else {
+                  <td>Not set</td>
+                  } @if (admissionNumberPattern) {
+                  <td [style.textAlign]="'center'">
+                    <button
+                      mat-stroked-button
+                      class="text-tertiary custom-button"
+                      (click)="onLaunchSetAdmissionNumberPrefixDialog()"
+                    >
+                      Change
+                    </button>
+                  </td>
+                  }@else {
+                  <td [style.textAlign]="'center'">
+                    <button
+                      mat-stroked-button
+                      class="text-primary custom-button"
+                      (click)="onLaunchSetAdmissionNumberPrefixDialog()"
+                    >
+                      Set Now
+                    </button>
+                  </td>
+                  }
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td>
+                    Cost of voucher
+                    <mat-icon
+                      class="text-primary"
+                      matTooltip="Click to learn more"
+                      (click)="onLearnMore('cost_of_voucher')"
+                      >info</mat-icon
+                    >
+                  </td>
+                  @if (costOfVoucher) {
+                  <td>
+                    Set to
+                    <span [style.fontWeight]="'bold'">{{
+                      costOfVoucher | ghanaCediFormat
+                    }}</span>
+                  </td>
+                  }@else {
+                  <td>Not set</td>
+                  } @if (costOfVoucher) {
+                  <td [style.textAlign]="'center'">
+                    <button
+                      mat-stroked-button
+                      class="text-tertiary custom-button"
+                      (click)="onLaunchSetCostOfVoucherDialog()"
+                    >
+                      Change
+                    </button>
+                  </td>
+                  } @else {
+                  <td [style.textAlign]="'center'">
+                    <button
+                      mat-stroked-button
+                      class="text-primary custom-button"
+                      (click)="onLaunchSetCostOfVoucherDialog()"
+                    >
+                      Set Now
+                    </button>
+                  </td>
+                  }
+                </tr>
+              </tbody>
+            </table>
           </c-col>
         </c-row>
       </c-card-body>
@@ -228,25 +211,34 @@
                       Add items (particulars) that students are supposed to
                       submit at the various check-in points on arrival.
                     </p>
-                    <form cForm>
-                      <label cLabel for="particular">Student Particular</label>
+                    <form
+                      cForm
+                      [formGroup]="form"
+                      (ngSubmit)="onAddCheckItem()"
+                    >
+                      <label cLabel for="name">Student Particular</label>
                       <c-input-group class="mb-3">
                         <input
                           type="text"
-                          id="particular"
+                          id="name"
                           cFormControl
                           placeholder="E.g Admission letter"
+                          formControlName="name"
                         />
                       </c-input-group>
 
                       <div class="d-grid">
                         <button
                           cButton
-                          type="button"
+                          type="submit"
                           class="text-white"
                           color="primary"
+                          [disabled]="
+                            form.invalid || (loading | async) === true
+                          "
                         >
-                          Save
+                          @if((loading | async) === true) { Saving... }@else {
+                          Save }
                         </button>
                       </div>
                     </form>
@@ -259,7 +251,9 @@
             <h6 style="text-align: center">Added Items/Particulars</h6>
             <mat-list role="list">
               @for (item of checkList; track $index) {
-              <mat-list-item>{{ $index + 1 + ". " + item.name }}</mat-list-item>
+              <mat-list-item>{{
+                $index + 1 + ". " + item?.name
+              }}</mat-list-item>
               }
             </mat-list>
           </c-col>

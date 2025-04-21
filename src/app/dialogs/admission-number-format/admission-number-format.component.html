@@ -1,0 +1,50 @@
+<h6 mat-dialog-title>Set Admission Number Pattern</h6>
+<div mat-dialog-content>
+  <c-card>
+    <c-card-body>
+      <c-row>
+        <c-col sm="12">
+          <form cForm [formGroup]="form">
+            <label cLabel for="admissionNumberPrefix"
+              >Admission number pattern</label
+            >
+            <c-input-group class="mb-3">
+              <input
+                type="text"
+                id="admissionNumberPrefix"
+                cFormControl
+                placeholder="E.g GHA****/24"
+                formControlName="admissionNumberPrefix"
+                (keyup)="generatePreview()"
+              />
+            </c-input-group>
+            <ng-container>
+              <div *ngIf="pattern">
+                <p><strong>Preview:</strong> {{ preview }}</p>
+              </div>
+            </ng-container>
+          </form>
+        </c-col>
+      </c-row>
+    </c-card-body>
+  </c-card>
+</div>
+<div mat-dialog-actions align="end">
+  <button
+    mat-stroked-button
+    color="warn"
+    [mat-dialog-close]
+    (click)="onCancel()"
+    [disabled]="(loading | async) === true"
+  >
+    Cancel
+  </button>
+  <button
+    mat-stroked-button
+    class="text-primary"
+    (click)="onSetAdmissionNumberPrefix()"
+    [disabled]="(loading | async) === true"
+  >
+    @if ((loading | async) === true) { Saving... } @else { Save }
+  </button>
+</div>

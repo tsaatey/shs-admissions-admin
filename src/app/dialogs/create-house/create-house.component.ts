@@ -1,10 +1,13 @@
 import { HouseRepo } from './../../repositories/house.repo';
-import { HouseService } from './../../services/house.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import {
   RowComponent,
   ColComponent,
@@ -13,7 +16,6 @@ import {
   CardBodyComponent,
 } from '@coreui/angular';
 import { BehaviorSubject } from 'rxjs';
-import { SessionStateStore } from '../../store/session.store';
 import { HouseDto } from '../../interfaces/dtos.interface';
 
 @Component({
@@ -35,8 +37,7 @@ import { HouseDto } from '../../interfaces/dtos.interface';
 export class CreateHouseComponent implements OnInit {
   public houseForm: any;
   public loading = new BehaviorSubject<boolean>(false);
-
-  private store = inject(SessionStateStore);
+  private schoolId = inject(MAT_DIALOG_DATA);
 
   constructor(
     private dialogRef: MatDialogRef<CreateHouseComponent>,
@@ -64,7 +65,7 @@ export class CreateHouseComponent implements OnInit {
     try {
       // Contact server
       await this.houseRepo.addHouse(
-        this.store.sessionSchool().id,
+        this.schoolId,
         this.houseForm.value as HouseDto
       );
 

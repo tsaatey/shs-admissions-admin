@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AdmisionManagementRepository } from './../../repositories/admission-management.repo';
+import { Component, inject, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
 import {
   CardBodyComponent,
@@ -9,21 +10,29 @@ import {
 import { ChartjsComponent } from '@coreui/angular-chartjs';
 
 import { WidgetsDropdownComponent } from '../widgets/widgets-dropdown/widgets-dropdown.component';
+import { SchoolStateStore } from '../../store/school.store';
+import { SchoolRepository } from '../../repositories/school.repo';
+import { AcademicYear } from '../../models/academic-year.model';
+import { SessionStateStore } from '../../store/session.store';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    templateUrl: 'dashboard.component.html',
-    styleUrls: ['dashboard.component.scss'],
-    imports: [
-        WidgetsDropdownComponent,
-        CardComponent,
-        CardBodyComponent,
-        RowComponent,
-        ColComponent,
-        ChartjsComponent,
-    ]
+  templateUrl: 'dashboard.component.html',
+  styleUrls: ['dashboard.component.scss'],
+  imports: [
+    WidgetsDropdownComponent,
+    CardComponent,
+    CardBodyComponent,
+    RowComponent,
+    ColComponent,
+    ChartjsComponent,
+    CommonModule,
+  ],
 })
 export class DashboardComponent implements OnInit {
-  public academicYear = '2024/2025';
+  public schoolStore = inject(SchoolStateStore);
+  private adminRepo = inject(AdmisionManagementRepository);
+  private sessionStore = inject(SessionStateStore);
 
   chartPolarAreaData: ChartData = {
     labels: ['Students Enrolled', 'Students Not Enrolled', 'Students Admitted'],
@@ -132,5 +141,10 @@ export class DashboardComponent implements OnInit {
     ],
   };
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    const data = await this.adminRepo.getAdmissionNumberPrefix(
+      Number(this.sessionStore.sessionSchool().id)
+    );
+    this.schoolStore.setCurrentAcademicYear(data.academicYear as AcademicYear);
+  }
 }

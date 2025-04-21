@@ -60,7 +60,6 @@ import { UpdateHouseComponent } from '../../../dialogs/update-house/update-house
     MatTableModule,
     MatMenuModule,
     MatIconModule,
-    AvatarComponent,
     MatPaginatorModule,
     CommonModule,
   ],
@@ -351,6 +350,7 @@ export class SchoolConfigComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(CreateHouseComponent, {
       width: '650px',
       disableClose: true,
+      data: this.sessionStore.sessionSchool().id,
     });
 
     // Listen to success close event
