@@ -95,8 +95,8 @@ export class SchoolRepository {
   public getAcademicYears(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.schoolMgtService.getAcademicYears().subscribe({
-        next: (response: ApiResponseDto<AcademicYearDto[]>) => {
-          const data = response.result.map(
+        next: (response: any) => {
+          const data = response.map(
             (year: AcademicYearDto) => new AcademicYear(year)
           );
           resolve(data);
@@ -203,7 +203,7 @@ export class SchoolRepository {
     return new Promise((resolve, reject) => {
       this.schoolMgtService.getParticulars(schoolId).subscribe({
         next: (response: ApiResponseDto<any>) => {
-          resolve(response.result);
+          resolve(response);
         },
         error: (error: HttpErrorResponse) => {
           reject(error);
@@ -221,7 +221,7 @@ export class SchoolRepository {
         .getAdmissionLetter(schoolId, academicYear)
         .subscribe({
           next: (response: ApiResponseDto<AdmissionLetter>) => {
-            resolve(response.result);
+            resolve(response);
           },
           error: (error: HttpErrorResponse) => {
             reject(error);

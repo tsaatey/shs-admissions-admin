@@ -76,10 +76,20 @@ export class AuthenticationService {
     );
   }
 
-  public async setCSSPSCredentials(payload: any) {
+  public async setCSSPSCredentials(
+    accessToken: string,
+    schoolId: number,
+    schoolCode: string,
+    password: string
+  ) {
     // Call the set cssps wrapper function from @Crafterhive/cssps
     try {
-      return await setSchoolCredentials(payload);
+      return await setSchoolCredentials({
+        accessToken,
+        schoolId,
+        schoolCode,
+        password,
+      });
     } catch (error) {
       throw error;
     }

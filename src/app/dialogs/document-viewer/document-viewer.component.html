@@ -1,0 +1,13 @@
+<div mat-dialog-content>
+  <iframe
+    width="600px"
+    height="600px"
+    [src]="
+      sanitizer.bypassSecurityTrustResourceUrl(
+        'https://view.officeapps.live.com/op/embed.aspx?src=' + fileUrl
+      )
+    "
+    frameborder="0"
+  >
+  </iframe>
+</div>

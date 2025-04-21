@@ -24,8 +24,12 @@
       </c-nav-item>
     </c-header-nav>
 
-    <c-header-nav class="d-none d-md-flex ms-auto text-secondary">
-      {{ sessionStore.sessionSchool().name }}
+    <c-header-nav
+      class="d-none d-md-flex ms-auto text-secondary"
+      [style.fontSize]="'14px'"
+      [style.fontWeight]="'bold'"
+    >
+      {{ sessionStore.sessionSchool().name | uppercase }}
     </c-header-nav>
 
     <c-header-nav class="ms-auto ms-md-0">

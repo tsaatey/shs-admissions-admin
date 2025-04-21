@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthenticationBloc } from '../blocs/auth.bloc';
 import { AuthStore } from '../store/authentication.store';
 import { SessionStateStore } from '../store/session.store';
+import { SchoolStateStore } from '../store/school.store';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +11,15 @@ import { SessionStateStore } from '../store/session.store';
 export class SessionUtilities {
   readonly authAstore = inject(AuthStore);
   readonly sessionStore = inject(SessionStateStore);
+  readonly schoolStore = inject(SchoolStateStore);
+
   constructor(private router: Router, private authBloc: AuthenticationBloc) {}
 
   public signOut() {
-    //change authenticated state
+    // Clear the stores, authenticated state will be reset
     this.authAstore.reset();
     this.sessionStore.reset();
+    this.schoolStore.reset();
 
     location.reload();
   }

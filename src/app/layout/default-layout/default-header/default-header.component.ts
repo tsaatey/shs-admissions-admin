@@ -1,6 +1,6 @@
 import { SessionUtilities } from './../../../utils/session.utilities';
 import { School } from './../../../models/school.model';
-import { JsonPipe, NgTemplateOutlet } from '@angular/common';
+import { CommonModule, JsonPipe, NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -58,6 +58,7 @@ import { SessionStateStore } from '../../../store/session.store';
     DropdownMenuDirective,
     DropdownHeaderDirective,
     DropdownItemDirective,
+    CommonModule,
   ],
 })
 export class DefaultHeaderComponent extends HeaderComponent implements OnInit {

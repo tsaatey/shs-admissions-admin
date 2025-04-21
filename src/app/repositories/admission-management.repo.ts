@@ -69,7 +69,7 @@ export class AdmisionManagementRepository {
         .getAdmissionNumberPrefix(school_id)
         .subscribe({
           next: (response: ApiResponseDto<AcademicYear>) => {
-            resolve(response.result);
+            resolve(response);
           },
           error: (err: HttpErrorResponse) => {
             reject(err);
@@ -78,11 +78,11 @@ export class AdmisionManagementRepository {
     });
   }
 
-  public getCostOfVoucher(school_id: any): Promise<any> {
+  public getCostOfVoucher(school_id: number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.admissionManagementService.getCostOfVoucher(school_id).subscribe({
         next: (response: HttpResponse<any>) => {
-          resolve(response.body);
+          resolve(response);
         },
         error: (err: HttpErrorResponse) => {
           reject(err);

@@ -1,0 +1,42 @@
+<h6 mat-dialog-title class="text-primary">Set Cost of Voucher</h6>
+<div mat-dialog-content>
+  <c-card>
+    <c-card-body>
+      <c-row>
+        <c-col sm="12">
+          <form cForm [formGroup]="form">
+            <label cLabel for="costOfVoucher">Cost of voucher</label>
+            <c-input-group class="mb-3">
+              <input
+                type="number"
+                id="costOfVoucher"
+                cFormControl
+                placeholder="E.g 40"
+                formControlName="costOfVoucher"
+              />
+            </c-input-group>
+          </form>
+        </c-col>
+      </c-row>
+    </c-card-body>
+  </c-card>
+</div>
+<div mat-dialog-actions align="end">
+  <button
+    mat-stroked-button
+    color="warn"
+    [mat-dialog-close]
+    (click)="onCancel()"
+    [disabled]="(loading | async) === true"
+  >
+    Cancel
+  </button>
+  <button
+    mat-stroked-button
+    class="text-primary"
+    (click)="onSetCostOfVoucher()"
+    [disabled]="(loading | async) === true"
+  >
+    @if ((loading | async) === true) { Saving... } @else { Save }
+  </button>
+</div>
