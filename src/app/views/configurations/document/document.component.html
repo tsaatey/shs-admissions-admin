@@ -4,34 +4,52 @@
       <c-col sm="5">
         <h6>Upload Documents</h6>
         <br />
-        <form cForm>
+        <form cForm [formGroup]="form" (ngSubmit)="uploadDocumentHandler()">
           <label cLabel for="file">Choose file (PDF format only)</label>
           <c-input-group class="mb-3">
-            <input type="file" id="file" cFormControl />
+            <input
+              type="file"
+              id="file"
+              cFormControl
+              accept=".pdf"
+              formControlName="file"
+              (change)="onDocumentChosen($event)"
+            />
           </c-input-group>
 
           <label cLabel for="name">Document name</label>
           <c-input-group class="mb-3">
-            <input type="text" id="name" cFormControl />
+            <input type="text" id="name" cFormControl formControlName="name" />
           </c-input-group>
 
           <label cLabel for="description">Document description</label>
           <c-input-group class="mb-3">
-            <input type="text" id="description" cFormControl />
+            <input
+              type="text"
+              id="description"
+              cFormControl
+              formControlName="description"
+            />
           </c-input-group>
 
           <div class="d-grid">
-            <button cButton type="button" class="text-white" color="primary">
-              Upload
+            <button
+              cButton
+              type="submit"
+              class="text-white"
+              color="primary"
+              [disabled]="form.invalid || (loading | async) === true"
+            >
+              @if((loading | async) === true) { Uploading... }@else { Upload }
             </button>
           </div>
         </form>
       </c-col>
       <c-col sm="7" class="my-4">
-        <table mat-table>
+        <table mat-table [dataSource]="dataSource">
           <!-- House name Column -->
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Document name</th>
+            <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let element">
               {{ element.name }}
             </td>
@@ -53,12 +71,12 @@
                 <mat-icon role="button">more_vert</mat-icon>
               </span>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item>
+                <button mat-menu-item (click)="onViewDocument(element.url)">
                   <mat-icon>preview</mat-icon>
                   <span>&nbsp;View</span>
                 </button>
-                <button mat-menu-item>
-                  <mat-icon>delete_forever</mat-icon>
+                <button mat-menu-item (click)="onDeleteDocument(element.id)">
+                  <mat-icon class="text-danger">delete_forever</mat-icon>
                   <span>&nbsp;Delete</span>
                 </button>
               </mat-menu>
@@ -70,7 +88,7 @@
         </table>
         <mat-paginator
           showFirstLastButtons=""
-          [pageSizeOptions]="[10, 40, 60]"
+          [pageSizeOptions]="[5, 10, 15]"
           aria-label="Select page"
           [style.marginTop]="'16px'"
           #housePaginator

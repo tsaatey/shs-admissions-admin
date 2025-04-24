@@ -55,7 +55,7 @@
                       >info</mat-icon
                     >
                   </td>
-                  @if(admissionLetter?.url) {
+                  @if((admissionLetter | async)?.url) {
                   <td>
                     Uploaded
                     <span [matMenuTriggerFor]="menu">
@@ -65,7 +65,9 @@
                       <button
                         mat-menu-item
                         (click)="
-                          onLaunchAdmissionLetterViewer(admissionLetter.url)
+                          onLaunchAdmissionLetterViewer(
+                            admissionLetter.value.url
+                          )
                         "
                       >
                         <mat-icon>preview</mat-icon>
@@ -82,7 +84,7 @@
                   </td>
                   } @else {
                   <td>Not uploaded</td>
-                  } @if (admissionLetter?.url) {
+                  } @if ((admissionLetter | async)?.url) {
                   <td [style.textAlign]="'center'">
                     <button
                       mat-stroked-button
