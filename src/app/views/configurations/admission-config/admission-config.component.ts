@@ -66,7 +66,8 @@ export class AdmissionConfigComponent implements OnInit {
   private store = inject(SessionStateStore);
   private schoolRepo = inject(SchoolRepository);
   private toastr = inject(ToastrService);
-  public admissionLetter!: AdmissionLetter;
+  public admissionLetter: BehaviorSubject<AdmissionLetter> =
+    new BehaviorSubject<AdmissionLetter>({} as AdmissionLetter);
   private renderer = inject(Renderer2);
   private adminRepo = inject(AdmisionManagementRepository);
   private formBuilder = inject(FormBuilder);
@@ -204,23 +205,25 @@ export class AdmissionConfigComponent implements OnInit {
   }
 
   async getAdmissionLetter(schoolId: string) {
-    this.admissionLetter = await this.schoolRepo.getAdmissionLetter(
-      schoolId,
-      ''
-    );
+    const data = await this.schoolRepo.getAdmissionLetter(schoolId, '');
+    this.admissionLetter.next(data);
   }
 
   async onDownloadAdmissionLetter() {
     const link = this.renderer.createElement('a');
     link.setAttribute('target', '_blank');
-    link.setAttribute('href', this.admissionLetter.url);
-    link.setAttribute('download', this.admissionLetter.objectKey);
+    link.setAttribute('href', this.admissionLetter.value.url);
+    link.setAttribute('download', this.admissionLetter.value.objectKey);
     link.click();
     link.remove();
   }
 
   onLaunchAdmissionLetterViewer(url: string) {
-    this.dialog.open(DocumentViewerComponent, { data: url });
+    this.dialog.open(DocumentViewerComponent, {
+      data: url,
+      width: '600px',
+      height: '600px',
+    });
   }
 
   onLaunchCSSPSCrdentialsModal() {

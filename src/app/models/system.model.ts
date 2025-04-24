@@ -1,15 +1,3 @@
-import { HttpStateStatus } from './../enums';
-
-export class HttpRequestState {
-  public status: HttpStateStatus;
-  public error: string;
-
-  constructor() {
-    this.status = HttpStateStatus.IDLE;
-    this.error = '';
-  }
-}
-
 export class AuthorizationResponse {
   accessToken: string;
   refreshToken: string;
