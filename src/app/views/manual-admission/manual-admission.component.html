@@ -17,24 +17,34 @@
               <c-card-body>
                 <c-row>
                   <c-col sm="12">
-                    <form cForm>
-                      <label cLabel for="indexNumber">Index number</label>
+                    <form
+                      cForm
+                      [formGroup]="form"
+                      (ngSubmit)="onGenerateAdmissionNumber()"
+                    >
+                      <label cLabel for="jhsIndexNumber">Index number</label>
                       <c-input-group class="mb-3">
                         <input
                           type="text"
-                          id="indexNumber"
+                          id="jhsIndexNumber"
                           cFormControl
                           placeholder="E.g 011302704524"
+                          formControlName="jhsIndexNumber"
                         />
                       </c-input-group>
                       <div class="d-grid">
                         <button
                           cButton
-                          type="button"
+                          type="submit"
                           class="text-white"
                           color="primary"
+                          [disabled]="
+                            form.invalid ||
+                            (generatingAdmissionNumber | async) === true
+                          "
                         >
-                          Generate
+                          @if((generatingAdmissionNumber | async) === true) {
+                          Please wait... } @else { Generate }
                         </button>
                       </div>
                     </form>
@@ -50,88 +60,117 @@
   <c-tab-pane class="p-3">
     <c-card>
       <c-card-body>
-        <c-row class="d-flex justify-content-center">
-          <c-col sm="5">
+        <c-row>
+          <c-col sm="7">
             <c-card>
+              <c-card-header>
+                <h6>Add Student</h6>
+              </c-card-header>
               <c-card-body>
                 <c-row>
                   <c-col sm="12">
-                    <form cForm>
-                      <label cLabel for="jhsIndexNumber">Index number</label>
-                      <c-input-group class="mb-3">
-                        <input
-                          type="text"
-                          id="jhsIndexNumber"
-                          cFormControl
-                          placeholder="E.g 011302704524"
-                        />
-                      </c-input-group>
+                    <form
+                      cForm
+                      [formGroup]="addStudentForm"
+                      (ngSubmit)="addStudentHandler()"
+                    >
+                      <c-row>
+                        <c-col sm="6">
+                          <label cLabel for="jhsIndexNumber"
+                            >Index number</label
+                          >
+                          <c-input-group class="mb-3">
+                            <input
+                              type="text"
+                              id="jhsIndexNumber"
+                              cFormControl
+                              placeholder="E.g 011302704524"
+                              formControlName="jhsIndexNumber"
+                            />
+                          </c-input-group>
 
-                      <label cLabel for="name">Full name</label>
-                      <c-input-group class="mb-3">
-                        <input
-                          type="text"
-                          id="name"
-                          cFormControl
-                          placeholder="E.g Kofi Akpaloo Kojo"
-                        />
-                      </c-input-group>
+                          <label cLabel for="name">Full name</label>
+                          <c-input-group class="mb-3">
+                            <input
+                              type="text"
+                              id="name"
+                              cFormControl
+                              placeholder="E.g Kofi Akpaloo Kojo"
+                              formControlName="name"
+                            />
+                          </c-input-group>
 
-                      <label cLabel for="gender">Gender</label>
-                      <c-input-group class="mb-3" id="gender">
-                        <select cSelect>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                        </select>
-                      </c-input-group>
+                          <label cLabel for="gender">Gender</label>
+                          <c-input-group class="mb-3" id="gender">
+                            <select cSelect formControlName="gender">
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                            </select>
+                          </c-input-group>
 
-                      <label cLabel for="grade">Aggregate</label>
-                      <c-input-group class="mb-3">
-                        <input
-                          type="number"
-                          id="grade"
-                          cFormControl
-                          placeholder="E.g 13"
-                        />
-                      </c-input-group>
+                          <label cLabel for="grade">Aggregate</label>
+                          <c-input-group class="mb-3">
+                            <input
+                              type="number"
+                              id="grade"
+                              cFormControl
+                              placeholder="E.g 13"
+                              formControlName="grade"
+                            />
+                          </c-input-group>
+                        </c-col>
+                        <c-col sm="6">
+                          <label cLabel for="programOffered">Programme</label>
+                          <c-input-group class="mb-3">
+                            <input
+                              type="text"
+                              id="programOffered"
+                              cFormControl
+                              placeholder="E.g General Arts"
+                              formControlName="programOffered"
+                            />
+                          </c-input-group>
 
-                      <label cLabel for="programOffered">Programme</label>
-                      <c-input-group class="mb-3">
-                        <input
-                          type="text"
-                          id="programOffered"
-                          cFormControl
-                          placeholder="E.g General Arts"
-                        />
-                      </c-input-group>
+                          <label cLabel for="track">Track</label>
+                          <c-input-group class="mb-3">
+                            <select cSelect id="track" formControlName="track">
+                              <option value="Gold">Gold</option>
+                              <option value="Green">Green</option>
+                              <option value="Single">Single</option>
+                            </select>
+                          </c-input-group>
 
-                      <label cLabel for="track">Track</label>
-                      <c-input-group class="mb-3">
-                        <select cSelect id="track">
-                          <option value="Gold">Gold</option>
-                          <option value="Green">Green</option>
-                          <option value="Single">Single</option>
-                        </select>
-                      </c-input-group>
-
-                      <label cLabel for="residentialStatus">Residency</label>
-                      <c-input-group class="mb-3">
-                        <select cSelect>
-                          <option value="Day">Day</option>
-                          <option value="Boarding">Boarding</option>
-                        </select>
-                      </c-input-group>
-
-                      <div class="d-grid">
-                        <button
-                          cButton
-                          type="button"
-                          class="text-white"
-                          color="primary"
-                        >
-                          Add Student
-                        </button>
-                      </div>
+                          <label cLabel for="residentialStatus"
+                            >Residency</label
+                          >
+                          <c-input-group class="mb-3">
+                            <select cSelect formControlName="residentialStatus">
+                              <option value="Day">Day</option>
+                              <option value="Boarding">Boarding</option>
+                            </select>
+                          </c-input-group>
+                        </c-col>
+                      </c-row>
+                      <c-row>
+                        <c-col sm="8"> </c-col>
+                        <c-col sm="4">
+                          <div class="d-grid">
+                            <button
+                              cButton
+                              type="submit"
+                              class="text-white"
+                              color="primary"
+                              [disabled]="
+                                addStudentForm.invalid ||
+                                (loading | async) === true
+                              "
+                            >
+                              @if((loading | async) === true) { Please wait...
+                              }@else { Add Student }
+                            </button>
+                          </div>
+                        </c-col>
+                      </c-row>
                     </form>
                   </c-col>
                 </c-row>

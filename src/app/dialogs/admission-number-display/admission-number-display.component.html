@@ -1,0 +1,23 @@
+<div mat-dialog-content>
+  <c-card>
+    <c-card-body>
+      <table>
+        <tr>
+          <td>Index Number:&nbsp;&nbsp;</td>
+          <td>{{ data.jhsIndexNumber }}</td>
+        </tr>
+        <tr>
+          <td>House Allocated:&nbsp;&nbsp;</td>
+          <td>{{ data.houseAllocated }}</td>
+        </tr>
+        <tr>
+          <td>Admission Number:&nbsp;&nbsp;</td>
+          <td>{{ data.admissionNumber }}</td>
+        </tr>
+      </table>
+    </c-card-body>
+  </c-card>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]>Close</button>
+</div>
