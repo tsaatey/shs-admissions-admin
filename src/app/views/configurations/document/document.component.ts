@@ -15,6 +15,7 @@ import {
   ColComponent,
   ButtonDirective,
   FormModule,
+  CardHeaderComponent,
 } from '@coreui/angular';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
@@ -27,6 +28,7 @@ import { PdfViewerComponent } from '../../../dialogs/pdf-viewer/pdf-viewer.compo
   imports: [
     CardComponent,
     CardBodyComponent,
+    CardHeaderComponent,
     RowComponent,
     ColComponent,
     ButtonDirective,

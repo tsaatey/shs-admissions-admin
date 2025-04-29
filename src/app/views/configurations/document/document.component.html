@@ -1,9 +1,10 @@
 <c-card class="my-4">
+  <c-card-header>
+    <h6>Upload Documents</h6>
+  </c-card-header>
   <c-card-body>
     <c-row>
       <c-col sm="5">
-        <h6>Upload Documents</h6>
-        <br />
         <form cForm [formGroup]="form" (ngSubmit)="uploadDocumentHandler()">
           <label cLabel for="file">Choose file (PDF format only)</label>
           <c-input-group class="mb-3">
