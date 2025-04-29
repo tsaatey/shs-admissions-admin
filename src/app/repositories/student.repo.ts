@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { StudentManagementService } from './../services/student-management.service';
 import { inject, Injectable } from '@angular/core';
+import { CSSPSStudent } from '../models/student-excel-model';
 
 @Injectable({ providedIn: 'root' })
 export class StudentRepository {
@@ -32,7 +33,10 @@ export class StudentRepository {
     });
   }
 
-  public uploadStudentsAsJSON(schoolId: number, students: any): Promise<any> {
+  public uploadStudentsAsJSON(
+    schoolId: number,
+    students: CSSPSStudent[]
+  ): Promise<any> {
     return new Promise((resolve, reject) => {
       this.studentService.uploadStudentsAsJSON(schoolId, students).subscribe({
         next: (response: any) => {

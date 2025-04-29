@@ -4,6 +4,7 @@ import { Inject, Injectable } from '@angular/core';
 import { enrollStudent } from '@Crafterhive/cssps';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { CSSPSStudent } from '../models/student-excel-model';
 
 @Injectable({ providedIn: 'root' })
 export class StudentManagementService {
@@ -27,7 +28,7 @@ export class StudentManagementService {
 
   public uploadStudentsAsJSON(
     schoolId: number,
-    students: any
+    students: CSSPSStudent[]
   ): Observable<any> {
     return this.httpClient.post<ApiResponseDto<any[]>>(
       `${environment.baseUrl}/school/student-list/json`,

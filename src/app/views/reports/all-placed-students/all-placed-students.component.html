@@ -5,20 +5,20 @@
       <c-col sm="5">
         <h4 class="card-title mb-0" id="traffic">All Placed Students</h4>
         <div class="small text-body-secondary">
-          {{ academicYear + " Admission Session" }}
+          {{ schoolStore.currentAcademicYear().name + " Admission Session" }}
         </div>
       </c-col>
-      <c-col sm="2" class="d-flex align-items-center">
+      <c-col sm="1" class="d-flex align-items-center">
         <mat-icon role="button" class="text-primary icon"
           >cloud_download</mat-icon
         >
       </c-col>
-      <c-col sm="5" class="d-flex align-items-center">
+      <c-col sm="6" class="d-flex align-items-center">
         <c-input-group>
           <input
             type="search"
             cFormControl
-            placeholder="Enter name of index number"
+            placeholder="Enter name or index number"
           />
           <button cButton color="primary" type="button" variant="outline">
             Search
@@ -32,7 +32,7 @@
     <!-- Second row -->
     <c-row>
       <c-col sm="12">
-        <table mat-table matSort>
+        <table mat-table [dataSource]="dataSource">
           <!-- Index number Column -->
           <ng-container matColumnDef="jhsIndexNumber">
             <th mat-header-cell *matHeaderCellDef>Index number</th>
@@ -74,10 +74,10 @@
           </ng-container>
 
           <!-- Programme Column -->
-          <ng-container matColumnDef="programmeOffered">
+          <ng-container matColumnDef="programOffered">
             <th mat-header-cell *matHeaderCellDef>Programme</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.programmeOffered }}
+              {{ element.programOffered }}
             </td>
           </ng-container>
 

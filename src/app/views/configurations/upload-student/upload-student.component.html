@@ -1,18 +1,46 @@
 <c-card class="my-4">
+  <c-card-header>
+    <h6>
+      Upload Students
+      <span>
+        <mat-icon
+          class="text-primary"
+          matTooltip="Click to learn more"
+          (click)="onLearnMore()"
+          [style.cursor]="'pointer'"
+          >info</mat-icon
+        >
+      </span>
+    </h6>
+  </c-card-header>
   <c-card-body>
     <c-row>
       <c-col sm="5">
-        <h6>Upload Students</h6>
         <br />
-        <form cForm>
-          <label cLabel for="particular">Choose file (Excel format only)</label>
+        <form cForm [formGroup]="form" (ngSubmit)="onUploadStudents()">
+          <label cLabel for="particular"
+            >Choose file (Excel format only)
+          </label>
           <c-input-group class="mb-3">
-            <input type="file" id="particular" cFormControl />
+            <input
+              type="file"
+              id="particular"
+              cFormControl
+              formControlName="file"
+              accept=".xlsx, .xls"
+              (change)="onFileChange($event)"
+            />
           </c-input-group>
 
           <div class="d-grid">
-            <button cButton type="button" class="text-white" color="primary">
-              Upload
+            <button
+              cButton
+              type="submit"
+              class="text-white"
+              color="primary"
+              [disabled]="form.invalid || (loading | async) === true"
+            >
+              @if ((loading | async) === true) { Uploading }@else { Upload }
             </button>
           </div>
         </form>
