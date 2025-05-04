@@ -84,18 +84,25 @@ export class LoginComponent implements OnInit {
         // Get school Id
         const schoolId = response.user?.school.schoolId;
 
-        // Get school
-        await this.schoolRepo.getSchoolInfo(schoolId ?? '');
+        try {
+          // Get school
+          await this.schoolRepo.getSchoolInfo(schoolId ?? '');
 
-        setTimeout(() => {
-          this.router.navigate(['dashboard']);
-        }, 500);
+          setTimeout(() => {
+            this.router.navigate(['dashboard']);
+          }, 500);
+        } catch (error) {
+          this.toastr.error('Unable to fetch school information');
+          setTimeout(() => {
+            // Clear the stores
+            this.util.signOut();
+          }, 1200);
+        }
+      } else {
+        this.toastr.error('Login failed');
       }
     } catch (error: any) {
       this.loading.next(false);
-
-      // Clear the stores
-      this.util.signOut();
 
       if (error?.message === 'User is not confirmed.') {
         setTimeout(() => {
@@ -109,7 +116,7 @@ export class LoginComponent implements OnInit {
         }, 500);
       } else {
         // Login failed
-        this.toastr.error(error?.message || error?.error);
+        this.toastr.error(error?.message || 'Invalid username or password');
       }
     }
   }

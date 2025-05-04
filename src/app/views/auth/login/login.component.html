@@ -43,9 +43,15 @@
                       "
                     >
                       <span *ngIf="(loading | async) === false">Login</span>
-                      <span *ngIf="(loading | async) === true"
-                        >Verifying...</span
-                      >
+                      <span *ngIf="(loading | async) === true">
+                        <img
+                          src="../../../../assets/loaders/loader.gif"
+                          alt=""
+                          width="20"
+                          height="20"
+                        />
+                        Checking...
+                      </span>
                     </button>
                   </c-col>
                   <c-col class="text-right" xs="6">
