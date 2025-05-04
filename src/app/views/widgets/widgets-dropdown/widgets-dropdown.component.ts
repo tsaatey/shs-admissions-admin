@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  inject,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -22,32 +23,37 @@ import {
   DropdownToggleDirective,
   DropdownMenuDirective,
   DropdownItemDirective,
-  DropdownDividerDirective,
 } from '@coreui/angular';
+import { SessionStateStore } from '../../../store/session.store';
+import { SchoolRepository } from '../../../repositories/school.repo';
 
 @Component({
-    selector: 'app-widgets-dropdown',
-    templateUrl: './widgets-dropdown.component.html',
-    styleUrls: ['./widgets-dropdown.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Default,
-    imports: [
-        RowComponent,
-        ColComponent,
-        WidgetStatAComponent,
-        TemplateIdDirective,
-        IconDirective,
-        ThemeDirective,
-        DropdownComponent,
-        ButtonDirective,
-        DropdownToggleDirective,
-        DropdownMenuDirective,
-        DropdownItemDirective,
-        RouterLink,
-        DropdownDividerDirective,
-        ChartjsComponent,
-    ]
+  selector: 'app-widgets-dropdown',
+  templateUrl: './widgets-dropdown.component.html',
+  styleUrls: ['./widgets-dropdown.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    RowComponent,
+    ColComponent,
+    WidgetStatAComponent,
+    TemplateIdDirective,
+    IconDirective,
+    ThemeDirective,
+    DropdownComponent,
+    ButtonDirective,
+    DropdownToggleDirective,
+    DropdownMenuDirective,
+    DropdownItemDirective,
+    RouterLink,
+    ChartjsComponent,
+  ],
 })
 export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
+  public store = inject(SessionStateStore);
+  private schoolRepo = inject(SchoolRepository);
+
+  public widgetData: any;
+
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   data: any[] = [];
@@ -157,8 +163,13 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
     },
   };
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.setData();
+
+    // Get dashboard metrics
+    this.widgetData = await this.schoolRepo.getDashboardData(
+      this.store.sessionSchool().id
+    );
   }
 
   ngAfterContentInit(): void {
@@ -217,11 +228,12 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 }
 
 @Component({
-    selector: 'app-chart-sample',
-    template: '<c-chart type="line" [data]="data" [options]="options" width="300" #chart></c-chart>',
-    imports: [ChartjsComponent]
+  selector: 'app-chart-sample',
+  template:
+    '<c-chart type="line" [data]="data" [options]="options" width="300" #chart></c-chart>',
+  imports: [ChartjsComponent],
 })
-export class ChartSample implements AfterViewInit {
+export class ChartSample implements OnInit, AfterViewInit {
   constructor() {}
 
   @ViewChild('chart') chartComponent!: ChartjsComponent;
@@ -260,7 +272,9 @@ export class ChartSample implements AfterViewInit {
     },
   };
 
-  ngAfterViewInit(): void {
+  async ngOnInit() {}
+
+  ngAfterViewInit() {
     setTimeout(() => {
       const data = () => {
         return {

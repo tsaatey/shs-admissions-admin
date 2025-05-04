@@ -1,17 +1,67 @@
 <app-widgets-dropdown />
-<!-- <c-card class="my-4">
+<c-card class="my-4">
   <c-card-body>
     <c-row>
       <c-col sm="5">
-        <h4 class="card-title mb-0" id="traffic">Admission Statistics</h4>
+        <h4 class="card-title mb-0" id="traffic">Revenue</h4>
         <div class="small text-body-secondary">
-          {{ academicYear + " Admission Session" }}
+          {{ schoolStore.currentAcademicYear().name + " Admission Session" }}
         </div>
       </c-col>
     </c-row>
-    <c-chart type="polarArea" [data]="chartPolarAreaData" [options]="options" />
+    <c-row [style.height]="'20px'"></c-row>
+    <c-row>
+      <c-col sm="4">
+        <app-stat-card
+          [mainText]="revenueData?.totalRevenue | ghanaCediFormat"
+          [subtitle]="'Total Revenue'"
+          [color]="'#2e7d32'"
+          [backgroundColor]="'#e8f5e9'"
+        >
+        </app-stat-card>
+      </c-col>
+      <c-col sm="4">
+        <app-stat-card
+          [mainText]="revenueData?.totalWithdrawals | ghanaCediFormat"
+          [subtitle]="'Total Withdrawals'"
+          [color]="'#d32f2f'"
+          [backgroundColor]="'#ffebee'"
+        >
+        </app-stat-card>
+      </c-col>
+      <c-col sm="4">
+        <app-stat-card
+          [mainText]="revenueData?.currentBalance | ghanaCediFormat"
+          [subtitle]="'Current Balance'"
+          [color]="'#1565c0'"
+          [backgroundColor]="'#e3f2fd'"
+        >
+        </app-stat-card>
+      </c-col>
+    </c-row>
+    <c-row [style.height]="'40px'"></c-row>
+    <c-row>
+      <c-col sm="12">
+        <c-card>
+          <c-card-body>
+            <h6>Withdrawal History</h6>
+            <table [striped]="true" cTable>
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Date/Time</th>
+                  <th scope="col">Destination Acct #</th>
+                  <th scope="col">Account Name</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
   </c-card-body>
-</c-card> -->
+</c-card>
 
 <c-card class="my-4">
   <c-card-body>
@@ -45,6 +95,16 @@
         </c-row>
       </c-col>
     </c-row>
+    <c-row [style.height]="'50px'"></c-row>
+    <c-row>
+      <c-col sm="12">
+        <c-chart
+          type="bar"
+          [data]="placementByProgrammeAndGender"
+          [options]="placementByProgrammeAndGenderOptions"
+        />
+      </c-col>
+    </c-row>
   </c-card-body>
 </c-card>
 
@@ -52,7 +112,7 @@
   <c-card-body>
     <c-row>
       <c-col sm="5">
-        <h4 class="card-title mb-0" id="traffic">Gender Distribution</h4>
+        <h4 class="card-title mb-0" id="traffic">Enrollment Distribution</h4>
         <div class="small text-body-secondary">
           {{ schoolStore.currentAcademicYear().name + " Admission Session" }}
         </div>
@@ -60,22 +120,8 @@
     </c-row>
     <c-chart
       type="bar"
-      [data]="placementByProgrammeAndGender"
-      [options]="placementByResidencyOptions"
+      [data]="placementByProgrammeAndGenderAndResidency"
+      [options]="enrollmentByProgrammeAndGenderAndResidencyOptions"
     />
-  </c-card-body>
-</c-card>
-
-<c-card class="my-4">
-  <c-card-body>
-    <c-row>
-      <c-col sm="5">
-        <h4 class="card-title mb-0" id="traffic">Revenue</h4>
-        <div class="small text-body-secondary">
-          {{ schoolStore.currentAcademicYear().name + " Admission Session" }}
-        </div>
-      </c-col>
-    </c-row>
-    <c-chart type="bar" [data]="chartBarData" [options]="options" />
   </c-card-body>
 </c-card>

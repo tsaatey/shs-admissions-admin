@@ -119,11 +119,11 @@ export class SchoolRepository {
     });
   }
 
-  public getDashboardData(schoolId: any): Promise<any> {
+  public getDashboardData(schoolId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.schoolMgtService.getDashboardData(schoolId).subscribe({
         next: (response: ApiResponseDto<any>) => {
-          resolve(response.result);
+          resolve(response);
         },
         error: (error: HttpErrorResponse) => {
           reject(error);

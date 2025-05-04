@@ -2,7 +2,7 @@
   <c-col sm="6" xl="3">
     <c-widget-stat-a color="primary" [title]="'Students Placed'">
       <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
-        1078
+        {{ widgetData?.admissionStatistics?.placed?.single }}
       </ng-template>
       <ng-template cTemplateId="widgetActionTemplate">
         <c-dropdown alignment="end" variant="btn-group">
@@ -17,14 +17,10 @@
             <svg cIcon name="cilOptions"></svg>
           </button>
           <ul cDropdownMenu>
-            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
-            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
-            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
             <li>
-              <hr cDropdownDivider />
-            </li>
-            <li>
-              <button cDropdownItem>Separated link</button>
+              <a [routerLink]="['/reports/students/all']" cDropdownItem
+                >View Details</a
+              >
             </li>
           </ul>
         </c-dropdown>
@@ -43,7 +39,7 @@
   <c-col sm="6" xl="3">
     <c-widget-stat-a [title]="'Students Enrolled'" color="info">
       <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
-        <span>678</span>
+        <span>{{ widgetData?.admissionStatistics?.enrolled?.single }}</span>
       </ng-template>
       <ng-template cTemplateId="widgetActionTemplate">
         <c-dropdown alignment="end" variant="btn-group">
@@ -58,11 +54,10 @@
             <svg cIcon name="cilOptions"></svg>
           </button>
           <ul cDropdownMenu>
-            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
-            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
-            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
             <li>
-              <a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a>
+              <a [routerLink]="['/reports/students/enrolled']" cDropdownItem
+                >View details</a
+              >
             </li>
           </ul>
         </c-dropdown>
@@ -81,7 +76,7 @@
   <c-col sm="6" xl="3">
     <c-widget-stat-a [title]="'Students Not Enrolled'" color="warning">
       <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
-        <span>139</span>
+        <span>{{ widgetData?.admissionStatistics?.unEnrolled?.single }}</span>
       </ng-template>
       <ng-template cTemplateId="widgetActionTemplate">
         <c-dropdown alignment="end" variant="btn-group">
@@ -96,12 +91,16 @@
             <svg cIcon name="cilOptions"></svg>
           </button>
           <ul cDropdownMenu>
-            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
-            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
+            <li>
+              <a [routerLink]="['/reports/students/not-enrolled']" cDropdownItem
+                >View details</a
+              >
+            </li>
+            <!-- <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
             <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
             <li>
               <a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a>
-            </li>
+            </li> -->
           </ul>
         </c-dropdown>
       </ng-template>
@@ -119,7 +118,7 @@
   <c-col sm="6" xl="3">
     <c-widget-stat-a [title]="'Students Admitted'" color="danger">
       <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
-        <span>889</span>
+        <span>{{ widgetData?.admissionStatistics?.admitted?.single }}</span>
       </ng-template>
       <ng-template cTemplateId="widgetActionTemplate">
         <c-dropdown alignment="end" variant="btn-group">
@@ -134,11 +133,10 @@
             <svg cIcon name="cilOptions"></svg>
           </button>
           <ul cDropdownMenu>
-            <li><a [routerLink]="[]" cDropdownItem>Action</a></li>
-            <li><a [routerLink]="[]" cDropdownItem>Another action</a></li>
-            <li><a [routerLink]="[]" cDropdownItem>Something else here</a></li>
             <li>
-              <a [disabled]="true" [routerLink]="[]" cDropdownItem>Disabled</a>
+              <a [routerLink]="['/reports/students/admitted']" cDropdownItem
+                >View details</a
+              >
             </li>
           </ul>
         </c-dropdown>

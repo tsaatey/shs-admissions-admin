@@ -85,7 +85,7 @@ export class SchoolManagementService {
     );
   }
 
-  public getDashboardData(schoolId: any): Observable<ApiResponseDto<any>> {
+  public getDashboardData(schoolId: string): Observable<ApiResponseDto<any>> {
     return this.httpClient.get<ApiResponseDto<any>>(
       `${environment.baseUrl}/school/dashboard`,
       {
