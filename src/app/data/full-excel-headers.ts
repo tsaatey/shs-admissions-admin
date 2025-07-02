@@ -115,3 +115,33 @@ export const formattedExcelHeaders = [
   { header: 'Assigned House', key: 'assignedHouse', width: 20 },
   { header: 'DateTime Admitted', key: 'dateTimeAdmitted', width: 20 },
 ];
+
+export const dobExcelHeaders = [
+  { header: 'JHS Index Number', key: 'jhsIndexNumber', width: 20 },
+  { header: 'Admission Number', key: 'admissionNumber', width: 20 },
+  { header: 'Name of Student', key: 'name', width: 50 },
+  { header: 'Gender', key: 'gender', width: 10 },
+  { header: 'Date of Birth', key: 'dateOfBirth', width: 18 },
+  { header: 'Program Offered', key: 'programOffered', width: 25 },
+  { header: 'Residency', key: 'residentialStatus', width: 15 },
+];
+
+export const guardianInformationExcelHeaders = [
+  { header: 'JHS Index Number', key: 'jhsIndexNumber', width: 20 },
+  { header: 'Name of Student', key: 'name', width: 50 },
+  { header: 'Gender', key: 'gender', width: 10 },
+  { header: 'Program Offered', key: 'programOffered', width: 25 },
+  { header: 'Residency', key: 'residentialStatus', width: 15 },
+  { header: 'Name of Guardian', key: 'nameOfGuardian', width: 25 },
+  { header: 'Occupation of Guardian', key: 'occupationOfGuardian', width: 25 },
+  {
+    header: 'Phone Number of Guardian',
+    key: 'phoneNumberOfGuardian',
+    width: 20,
+  },
+  {
+    header: 'Residential Address of Guardian',
+    key: 'residentialAddressOfGuardian',
+    width: 30,
+  },
+];

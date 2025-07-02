@@ -11,7 +11,7 @@ export class StudentRepository {
     return new Promise((resolve, reject) => {
       this.studentService.getStudentList(schoolId, type).subscribe({
         next: (response: any) => {
-          resolve(response);
+          resolve(response.content);
         },
         error: (error: HttpErrorResponse) => {
           reject(error);

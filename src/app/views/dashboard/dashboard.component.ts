@@ -205,12 +205,12 @@ export class DashboardComponent implements OnInit {
       STUDENT_TYPE.ALL_STUDENTS
     );
 
-    const result = res.content.map((student: CSSPSStudent) =>
+    const result = res.map((student: CSSPSStudent) =>
       student.programOffered.toLowerCase()
     );
     this.programmes = [...new Set(result)];
 
-    this.placedStudents = res.content;
+    this.placedStudents = res;
   }
 
   async getPlacementByProgrammeAndGenderData() {
@@ -266,7 +266,7 @@ export class DashboardComponent implements OnInit {
       STUDENT_TYPE.ENROLLED_STUDENTS
     );
 
-    const result = res.content.map((student: CSSPSStudent) =>
+    const result = res.map((student: CSSPSStudent) =>
       student.programOffered.toLowerCase()
     );
     const programmes = [...new Set(result)];
