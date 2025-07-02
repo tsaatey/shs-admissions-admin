@@ -123,7 +123,9 @@ export class UpdateHouseComponent
       this.dialogRef.close(true);
     } catch (error: any) {
       this.loading.next(false);
-      this.toastr.error(error?.error?.message);
+      this.toastr.error(
+        error?.error?.message || error?.message || 'Unknown error'
+      );
     }
   }
 

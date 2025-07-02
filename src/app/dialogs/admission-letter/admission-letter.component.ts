@@ -78,7 +78,9 @@ export class AdmissionLetterComponent {
       this.loading.next(false);
 
       // Show error message
-      this.toastr.error(error?.error?.message);
+      this.toastr.error(
+        error?.error?.message || error?.message || 'Unknown error'
+      );
     }
   }
 }

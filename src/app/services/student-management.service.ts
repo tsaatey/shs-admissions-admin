@@ -20,7 +20,7 @@ export class StudentManagementService {
   }
 
   public searchStudent(schoolId: number, searchTerm: string): Observable<any> {
-    return this.httpClient.get<ApiResponseDto<any[]>>(
+    return this.httpClient.get<any>(
       `${environment.baseUrl}/school/student/search`,
       { params: { schoolId, searchTerm } }
     );

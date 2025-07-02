@@ -1,4 +1,6 @@
-<c-card>
+<c-card
+  [hidden]="dataSource.data.length === 0 && (searching | async) === false"
+>
   <c-card-body>
     <!-- First row -->
     <c-row>
@@ -9,21 +11,44 @@
         </div>
       </c-col>
       <c-col sm="1" class="d-flex align-items-center">
-        <mat-icon role="button" class="text-primary icon"
+        @if((enableDownload | async) === true) {
+        <mat-icon
+          role="button"
+          class="text-primary icon"
+          (click)="onDownloadStudentList()"
           >cloud_download</mat-icon
         >
+        }
       </c-col>
-      <c-col sm="6" class="d-flex align-items-center">
-        <c-input-group>
-          <input
-            type="search"
-            cFormControl
-            placeholder="Enter name or index number"
-          />
-          <button cButton color="primary" type="button" variant="outline">
-            Search
-          </button>
-        </c-input-group>
+      <c-col sm="5">
+        <form cForm [formGroup]="searchForm" (ngSubmit)="onSearchStudent()">
+          <c-input-group>
+            <input
+              type="search"
+              cFormControl
+              placeholder="Enter name or index number"
+              [(ngModel)]="searchInput"
+              formControlName="search"
+              (ngModelChange)="onResetSearch()"
+            />
+            <button
+              cButton
+              color="primary"
+              type="submit"
+              variant="outline"
+              [disabled]="(searching | async) === true"
+            >
+              @if((searching | async) === true) {
+              <img
+                src="../../../../assets/loaders/loader.gif"
+                alt=""
+                width="20"
+                height="20"
+              />
+              } Search
+            </button>
+          </c-input-group>
+        </form>
       </c-col>
     </c-row>
 
@@ -32,10 +57,17 @@
     <!-- Second row -->
     <c-row>
       <c-col sm="12">
-        <table mat-table [dataSource]="dataSource">
+        <table mat-table [dataSource]="dataSource" matSort>
           <!-- Index number Column -->
           <ng-container matColumnDef="jhsIndexNumber">
-            <th mat-header-cell *matHeaderCellDef>Index number</th>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by jhsIndexNumber"
+            >
+              Index number
+            </th>
             <td mat-cell *matCellDef="let element">
               {{ element.jhsIndexNumber }}
             </td>
@@ -43,7 +75,14 @@
 
           <!-- Student name Column -->
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Candidate name</th>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by name"
+            >
+              Candidate name
+            </th>
             <td mat-cell *matCellDef="let element">
               {{ element.name }}
             </td>
@@ -51,7 +90,14 @@
 
           <!-- Gender Column -->
           <ng-container matColumnDef="gender">
-            <th mat-header-cell *matHeaderCellDef>Gender</th>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by gender"
+            >
+              Gender
+            </th>
             <td mat-cell *matCellDef="let element">
               {{ element.gender }}
             </td>
@@ -59,7 +105,14 @@
 
           <!-- Residency Column -->
           <ng-container matColumnDef="residentialStatus">
-            <th mat-header-cell *matHeaderCellDef>Residency</th>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by residentialStatus"
+            >
+              Residency
+            </th>
             <td mat-cell *matCellDef="let element">
               {{ element.residentialStatus }}
             </td>
@@ -67,7 +120,14 @@
 
           <!-- Grade Column -->
           <ng-container matColumnDef="grade">
-            <th mat-header-cell *matHeaderCellDef>Grade</th>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by grade"
+            >
+              Grade
+            </th>
             <td mat-cell *matCellDef="let element">
               {{ element.grade }}
             </td>
@@ -75,7 +135,14 @@
 
           <!-- Programme Column -->
           <ng-container matColumnDef="programOffered">
-            <th mat-header-cell *matHeaderCellDef>Programme</th>
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              mat-sort-header
+              sortActionDescription="Sort by programOffered"
+            >
+              Programme
+            </th>
             <td mat-cell *matCellDef="let element">
               {{ element.programOffered }}
             </td>
@@ -104,3 +171,26 @@
     </c-row>
   </c-card-body>
 </c-card>
+
+@if (dataSource.data.length === 0 && (searching | async) === false) {
+<c-card>
+  <c-card-body>
+    @if((loading | async) === true) {
+    <span>
+      <img
+        src="../../../../assets/loaders/loader.gif"
+        alt=""
+        width="30"
+        height="30"
+      />
+      Please wait...
+    </span>
+    } @else {
+    <span>
+      <mat-icon class="text-primary">info</mat-icon>&nbsp; No data available at
+      the moment
+    </span>
+    }
+  </c-card-body>
+</c-card>
+}

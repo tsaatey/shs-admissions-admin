@@ -17,7 +17,7 @@ import { ExcelExporterService } from '../../../services/excel-exporter.service';
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { MoreInformationComponent } from 'src/app/dialogs/more-information/more-information.component';
+import { MoreInformationComponent } from '../../../dialogs/more-information/more-information.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -154,7 +154,9 @@ export class UploadStudentComponent implements OnInit {
       this.loading.next(false);
 
       // Display
-      this.toastr.error(error?.error?.message);
+      this.toastr.error(
+        error?.error?.message || error?.message || 'Unknown error'
+      );
     }
   }
 
