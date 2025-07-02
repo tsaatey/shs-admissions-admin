@@ -1,1 +1,168 @@
-<p>account works!</p>
+<c-nav variant="tabs">
+  <a [active]="true" [cTabContent]="tabContent" [tabPaneIdx]="0" cNavLink
+    >User Information</a
+  >
+  <a [cTabContent]="tabContent" [tabPaneIdx]="1" cNavLink>Change Password</a>
+</c-nav>
+<c-tab-content #tabContent="cTabContent">
+  <c-tab-pane class="p-3">
+    <c-card>
+      <c-card-body>
+        <c-row>
+          <c-col sm="5">
+            <c-card>
+              <c-card-header>
+                <h6>Current User Information</h6>
+              </c-card-header>
+              <c-card-body>
+                <c-row>
+                  <c-col sm="12">
+                    <form cForm [formGroup]="userForm">
+                      <label cLabel for="firstName">First name</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="firstName"
+                          cFormControl
+                          formControlName="firstName"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="lastName">Last name</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="lastName"
+                          cFormControl
+                          formControlName="lastName"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="middleName">Middle name</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="middleName"
+                          cFormControl
+                          formControlName="middleName"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="gender">Gender</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="gender"
+                          cFormControl
+                          formControlName="gender"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="phoneNumber">Phone number</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="phoneNumber"
+                          cFormControl
+                          formControlName="phoneNumber"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="email">Email address</label>
+                      <c-input-group class="mb-3">
+                        <input
+                          type="text"
+                          id="email"
+                          cFormControl
+                          formControlName="email"
+                        />
+                      </c-input-group>
+                    </form>
+                  </c-col>
+                </c-row>
+              </c-card-body>
+            </c-card>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-tab-pane>
+  <c-tab-pane class="p-3">
+    <c-card>
+      <c-card-body>
+        <c-row>
+          <c-col sm="5">
+            <c-card>
+              <c-card-header>
+                <h6>Change User Password</h6>
+              </c-card-header>
+              <c-card-body>
+                <c-row>
+                  <c-col sm="12">
+                    <form
+                      cForm
+                      [formGroup]="changePasswordForm"
+                      (ngSubmit)="onChangePassword()"
+                    >
+                      <label cLabel for="previousPassword"
+                        >Current password</label
+                      >
+                      <c-input-group class="mb-3">
+                        <input
+                          type="password"
+                          id="previousPassword"
+                          cFormControl
+                          formControlName="previousPassword"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="proposedPassword"
+                        >Proposed password</label
+                      >
+                      <c-input-group class="mb-3">
+                        <input
+                          type="password"
+                          id="proposedPassword"
+                          cFormControl
+                          formControlName="proposedPassword"
+                        />
+                      </c-input-group>
+
+                      <label cLabel for="confirmProposedPassword"
+                        >Confirm proposed password</label
+                      >
+                      <c-input-group class="mb-3">
+                        <input
+                          type="password"
+                          id="confirmProposedPassword"
+                          cFormControl
+                          formControlName="confirmProposedPassword"
+                        />
+                      </c-input-group>
+
+                      <div class="d-grid">
+                        <button
+                          cButton
+                          type="submit"
+                          class="text-white"
+                          color="primary"
+                          [disabled]="
+                            changePasswordForm.invalid ||
+                            (loading | async) === true
+                          "
+                        >
+                          @if((loading | async) === true) { Please wait...
+                          }@else { Change Password }
+                        </button>
+                      </div>
+                    </form>
+                  </c-col>
+                </c-row>
+              </c-card-body>
+            </c-card>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-tab-pane>
+</c-tab-content>
