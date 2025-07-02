@@ -17,6 +17,7 @@ import {
 } from '@coreui/angular';
 import { BehaviorSubject } from 'rxjs';
 import { HouseDto } from '../../interfaces/dtos.interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-house',
@@ -38,6 +39,7 @@ export class CreateHouseComponent implements OnInit {
   public houseForm: any;
   public loading = new BehaviorSubject<boolean>(false);
   private schoolId = inject(MAT_DIALOG_DATA);
+  private toastr = inject(ToastrService);
 
   constructor(
     private dialogRef: MatDialogRef<CreateHouseComponent>,
@@ -74,7 +76,14 @@ export class CreateHouseComponent implements OnInit {
 
       // Close dialog and pass success
       this.dialogRef.close(true);
-    } catch (error) {}
+    } catch (error: any) {
+      // Stop loading
+      this.loading.next(false);
+
+      this.toastr.error(
+        error?.error?.message || error?.message || 'Unknown error'
+      );
+    }
   }
 
   onCancel() {

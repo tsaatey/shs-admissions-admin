@@ -154,7 +154,9 @@ export class UploadStudentComponent implements OnInit {
       this.loading.next(false);
 
       // Display
-      this.toastr.error(error?.error?.message);
+      this.toastr.error(
+        error?.error?.message || error?.message || 'Unknown error'
+      );
     }
   }
 
