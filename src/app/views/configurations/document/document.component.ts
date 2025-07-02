@@ -151,7 +151,9 @@ export class DocumentComponent implements OnInit {
         // Hide the loader in case of an error
         this.confirmationService.hideLoader();
 
-        this.toastr.error(error?.error?.message);
+        this.toastr.error(
+          error?.error?.message || error?.message || 'Unknown error'
+        );
       }
     }
   }

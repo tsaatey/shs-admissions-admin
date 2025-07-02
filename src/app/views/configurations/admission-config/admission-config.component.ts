@@ -319,7 +319,9 @@ export class AdmissionConfigComponent implements OnInit {
       // Stop loading
       this.loading.next(false);
 
-      this.toastr.error(error?.error?.message);
+      this.toastr.error(
+        error?.error?.message || error?.message || 'Unknown error'
+      );
     }
   }
 }

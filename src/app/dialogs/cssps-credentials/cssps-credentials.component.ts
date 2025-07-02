@@ -87,7 +87,9 @@ export class CsspsCredentialsComponent implements OnInit {
         this.loading.next(false);
 
         // Display error message
-        this.toastr.error(error?.error?.message || 'Unknown error occurred');
+        this.toastr.error(
+          error?.error?.message || error?.message || 'Unknown error occurred'
+        );
       }
     } else {
       this.toastr.error('Scool code and password are required!');

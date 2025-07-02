@@ -60,7 +60,15 @@ export class AdmissionNumberFormatComponent implements OnInit {
   }
 
   async onSetAdmissionNumberPrefix() {
-    if (this.form.valid) {
+    if (!this.form.valia) {
+      // If the form is not valid, do not proceed
+      this.toastr.error('Admission number pattern is required.');
+      return;
+    }
+
+    this.loading.next(true);
+
+    try {
       this.loading.next(true);
 
       // Form is valid
@@ -81,12 +89,14 @@ export class AdmissionNumberFormatComponent implements OnInit {
 
       // Close dialog
       this.dialogRef.close(true);
-    } else {
-      // Stop loading
+    } catch (error: any) {
       this.loading.next(false);
 
-      // Form is not valid, do not submit
-      this.toastr.error('Admission number pattern is required.');
+      // Show error message
+      this.toastr.error(
+        error?.error?.message || error?.message || 'Unknown error'
+      );
+      console.error('Error setting admission number prefix:', error);
     }
   }
 

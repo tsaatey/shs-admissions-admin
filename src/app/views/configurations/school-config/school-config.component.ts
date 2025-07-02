@@ -190,7 +190,9 @@ export class SchoolConfigComponent implements OnInit, AfterViewInit {
       this.loading.next(false);
 
       // Display error message
-      this.toastr.error(error?.error?.message);
+      this.toastr.error(
+        error?.error?.message || error?.message || 'Unknown error'
+      );
     }
   }
 
@@ -239,7 +241,9 @@ export class SchoolConfigComponent implements OnInit, AfterViewInit {
       this.uploadingLogo.next(false);
 
       // Display error
-      this.toastr.error(error?.error.message);
+      this.toastr.error(
+        error?.error.message || error?.message || 'Unknown error'
+      );
     }
   }
 
@@ -276,7 +280,9 @@ export class SchoolConfigComponent implements OnInit, AfterViewInit {
       this.uploadingSchoolImage.next(false);
 
       // Display error
-      this.toastr.error(error?.error.message);
+      this.toastr.error(
+        error?.error.message || error?.message || 'Unknown error'
+      );
     }
   }
 
@@ -340,7 +346,9 @@ export class SchoolConfigComponent implements OnInit, AfterViewInit {
         // Hide the loader in case of an error
         this.confirmationService.hideLoader();
 
-        this.toastr.error(error?.error?.message);
+        this.toastr.error(
+          error?.error?.message || error?.message || 'Unknown error'
+        );
       }
     }
   }
@@ -420,7 +428,9 @@ export class SchoolConfigComponent implements OnInit, AfterViewInit {
         // Hide the loader in case of an error
         this.confirmationService.hideLoader();
 
-        this.toastr.error(error?.error?.message);
+        this.toastr.error(
+          error?.error?.message || error?.message || 'Unknown error'
+        );
       }
     }
   }
