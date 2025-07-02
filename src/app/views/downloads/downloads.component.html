@@ -1,0 +1,42 @@
+<c-card>
+  <c-card-header>
+    <h6>Downloads</h6>
+  </c-card-header>
+  <c-card-body>
+    <c-row>
+      <c-col sm="4">
+        <!-- <form cForm>
+          
+        </form> -->
+        <label cLabel for="item">Choose what you want to download </label>
+        <c-input-group class="mb-3">
+          <select cSelect id="item" (change)="onDownload($event)">
+            <option selected>Choose an option</option>
+            <option value="placed-students">All Placed Students</option>
+            <option value="admitted-students">Admitted Students</option>
+            <option value="enrolled-students">Enrolled Students</option>
+            <option value="not-enrolled-students">Not Enrolled Students</option>
+            <option value="dates-of-birth">
+              Students' Dates of Birth (Only enrolled)
+            </option>
+            <option value="guardian-information">
+              Guardian Information (Only enrolled)
+            </option>
+          </select>
+        </c-input-group>
+
+        <div class="d-grid">
+          <button
+            cButton
+            type="button"
+            class="text-white"
+            color="primary"
+            (click)="downloadStudentList()"
+          >
+            Download
+          </button>
+        </div>
+      </c-col>
+    </c-row>
+  </c-card-body>
+</c-card>

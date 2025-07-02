@@ -98,6 +98,16 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./views/reports/reports-routes').then((m) => m.routes),
       },
+      {
+        path: 'downloads',
+        loadChildren: () =>
+          import('./views/downloads/downloads-routes').then((m) => m.routes),
+      },
+      {
+        path: 'account',
+        loadChildren: () =>
+          import('./views/account/account-routes').then((m) => m.routes),
+      },
     ],
   },
   { path: '**', redirectTo: '404' },

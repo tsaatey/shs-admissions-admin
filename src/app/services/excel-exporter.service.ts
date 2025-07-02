@@ -4,7 +4,11 @@ import {
   CSSPSStudent,
   StudentExcelFormat,
 } from '../models/student-excel-model';
-import { formattedExcelHeaders } from '../data/full-excel-headers';
+import {
+  dobExcelHeaders,
+  formattedExcelHeaders,
+  guardianInformationExcelHeaders,
+} from '../data/full-excel-headers';
 
 @Injectable({ providedIn: 'root' })
 export class ExcelExporterService {
@@ -94,6 +98,74 @@ export class ExcelExporterService {
         currentLevel: student.currentLevel,
         assignedHouse: student.assignedHouse,
         dateTimeAdmitted: student.dateTimeAdmitted,
+      });
+    });
+
+    // Style header row
+    worksheet.getRow(1).font = { bold: true };
+
+    // Generate the Excel file
+    const buffer = await workbook.xlsx.writeBuffer();
+    return new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+  }
+
+  async generateStudentDateOfBirthFile(
+    students: StudentExcelFormat[],
+    sheetTitle: string
+  ) {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet(sheetTitle);
+
+    // Define headers for date of birth
+    worksheet.columns = dobExcelHeaders;
+
+    // Add each student as a row
+    students.forEach((student) => {
+      worksheet.addRow({
+        jhsIndexNumber: student.jhsIndexNumber,
+        admissionNumber: student.admissionNumber,
+        name: student.name,
+        gender: student.gender,
+        dateOfBirth: student.dateOfBirth,
+        programOffered: student.programOffered,
+        residentialStatus: student.residentialStatus,
+      });
+    });
+
+    // Style header row
+    worksheet.getRow(1).font = { bold: true };
+
+    // Generate the Excel file
+    const buffer = await workbook.xlsx.writeBuffer();
+    return new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+  }
+
+  async generateGuardianInformationFile(
+    students: StudentExcelFormat[],
+    sheetTitle: string
+  ) {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet(sheetTitle);
+
+    // Define headers for guardian information
+    worksheet.columns = guardianInformationExcelHeaders;
+
+    // Add each student as a row
+    students.forEach((student) => {
+      worksheet.addRow({
+        jhsIndexNumber: student.jhsIndexNumber,
+        name: student.name,
+        gender: student.gender,
+        programOffered: student.programOffered,
+        residentialStatus: student.residentialStatus,
+        nameOfGuardian: student.nameOfGuardian,
+        occupationOfGuardian: student.occupationOfGuardian,
+        phoneNumberOfGuardian: student.phoneNumberOfGuardian,
+        residentialAddressOfGuardian: student.residentialAddressOfGuardian,
       });
     });
 

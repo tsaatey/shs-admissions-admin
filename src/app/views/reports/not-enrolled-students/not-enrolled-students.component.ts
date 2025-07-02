@@ -114,7 +114,7 @@ export class NotEnrolledStudentsComponent implements OnInit, AfterViewChecked {
       STUDENT_TYPE.NOT_ENROLLED
     );
 
-    res.content.forEach((element: Student) => {
+    res.forEach((element: Student) => {
       const data = getFormattedStudentForExcel(element);
       this.students.push(new StudentExcelFormat(data));
     });
