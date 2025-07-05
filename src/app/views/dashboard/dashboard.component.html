@@ -88,7 +88,7 @@
           </c-col>
           <c-col sm="6">
             <c-chart
-              type="bar"
+              type="pie"
               [data]="placementByGender"
               [options]="options"
             />
@@ -96,14 +96,32 @@
         </c-row>
       </c-col>
     </c-row>
-    <c-row [style.height]="'50px'"></c-row>
+  </c-card-body>
+</c-card>
+
+<c-card class="my-4">
+  <c-card-body>
     <c-row>
       <c-col sm="12">
-        <c-chart
-          type="bar"
-          [data]="placementByProgrammeAndGender"
-          [options]="placementByProgrammeAndGenderOptions"
-        />
+        <c-row>
+          <c-col sm="5">
+            <h4 class="card-title mb-0" id="traffic">Admission Progress</h4>
+            <div class="small text-body-secondary">
+              {{
+                schoolStore.currentAcademicYear().name + " Admission Session"
+              }}
+            </div>
+          </c-col>
+        </c-row>
+        <c-row>
+          <c-col sm="12">
+            <c-chart
+              type="line"
+              [data]="admissionLineChartConfig"
+              [options]="admissionLineChartOptions"
+            />
+          </c-col>
+        </c-row>
       </c-col>
     </c-row>
   </c-card-body>
@@ -119,10 +137,28 @@
         </div>
       </c-col>
     </c-row>
-    <c-chart
-      type="bar"
-      [data]="placementByProgrammeAndGenderAndResidency"
-      [options]="enrollmentByProgrammeAndGenderAndResidencyOptions"
-    />
+    <c-row>
+      <c-col sm="12">
+        <app-enrollment-data-chart [studentData]="enrolledStudents">
+        </app-enrollment-data-chart>
+      </c-col>
+    </c-row>
+    <c-row [style.height]="'50px'"></c-row>
+    <c-row>
+      <c-col sm="6">
+        <c-chart
+          type="line"
+          [data]="enrollmentLineChartConfig"
+          [options]="enrollmentLineChartOptions"
+        />
+      </c-col>
+      <c-col sm="6">
+        <c-chart
+          type="bar"
+          [data]="enrollmentByProgrammeAndGenderAndResidency"
+          [options]="enrollmentByProgrammeAndGenderAndResidencyOptions"
+        />
+      </c-col>
+    </c-row>
   </c-card-body>
 </c-card>

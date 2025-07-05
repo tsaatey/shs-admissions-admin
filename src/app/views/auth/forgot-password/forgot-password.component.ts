@@ -78,7 +78,11 @@ export class ForgotPasswordComponent implements OnInit {
       // Stop loading
       this.loading.next(false);
 
-      this.toastr.error(error?.message);
+      this.toastr.error(
+        error?.message ||
+          error?.error?.message ||
+          'An error occurred while processing your request. Please try again.'
+      );
     }
   }
 }

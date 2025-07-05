@@ -20,9 +20,14 @@ import { SchoolStateStore } from '../../store/school.store';
 import { AcademicYear } from '../../models/academic-year.model';
 import { SessionStateStore } from '../../store/session.store';
 import { CommonModule } from '@angular/common';
-import { CSSPSStudent } from '../../models/student-excel-model';
+import {
+  CSSPSStudent,
+  StudentExcelFormat,
+} from '../../models/student-excel-model';
 import { LoaderService } from '../../services/loader.service';
 import { StatCardComponent } from '../../shared/stat-card/stat-card.component';
+import { EnrollmentDataChartComponent } from '../../shared/enrollment-data-chart/enrollment-data-chart.component';
+import dayjs from 'dayjs';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -38,6 +43,7 @@ import { StatCardComponent } from '../../shared/stat-card/stat-card.component';
     StatCardComponent,
     GhanaCediFormatPipe,
     TableModule,
+    EnrollmentDataChartComponent,
   ],
 })
 export class DashboardComponent implements OnInit {
@@ -50,6 +56,7 @@ export class DashboardComponent implements OnInit {
 
   private programmes: any;
   private placedStudents: CSSPSStudent[] = [];
+  public enrolledStudents: StudentExcelFormat[] = [];
 
   public revenueData!: any;
 
@@ -105,14 +112,56 @@ export class DashboardComponent implements OnInit {
     },
   };
 
+  public enrollmentLineChartOptions = {
+    responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Date/Month',
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Number of Enrolled Students',
+        },
+        beginAtZero: true,
+      },
+    },
+  };
+
+  public admissionLineChartOptions = {
+    responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Date/Month',
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Number of Admitted Students',
+        },
+        beginAtZero: true,
+      },
+    },
+  };
+
   public placementByProgramme: any;
   public placementByGender: any;
   public placementByProgrammeAndGender: any;
   public placementByProgrammeAndGenderAndResidency: any;
+  public enrollmentByProgrammeAndGenderAndResidency: any;
+
+  public enrollmentLineChartConfig: any;
+  public admissionLineChartConfig: any;
 
   async ngOnInit() {
     // Start loading
-    this.loader.showLoader('Loading dashboard data...');
+    this.loader.showLoader('Loading dashboard data. Please wait...');
 
     // Get current academic calendar
     const data = await this.adminRepo.getAdmissionNumberPrefix(
@@ -141,6 +190,9 @@ export class DashboardComponent implements OnInit {
     // Get data for enrollment distribution chart
     await this.getEnrollmentByProgrammeAndGenderAndResidency();
 
+    // Generate admission line chart
+    await this.generateAdmissionLineChart();
+
     // Hide the loader
     this.loader.hideLoader();
   }
@@ -148,7 +200,7 @@ export class DashboardComponent implements OnInit {
   async getPlacementByProgrammeData() {
     const labels: string[] = [];
     const data: number[] = [];
-    const color = '#FF6384';
+    const color = '#BA68C8';
     const backgroundColor: string[] = [];
 
     this.programmes.forEach((programme: string) => {
@@ -192,7 +244,7 @@ export class DashboardComponent implements OnInit {
       datasets: [
         {
           label: 'By gender',
-          backgroundColor: ['#FFCE56', '#36A2EB'],
+          backgroundColor: ['#00695C', '#827717'],
           data: [totalFemale, totalMale],
         },
       ],
@@ -266,12 +318,7 @@ export class DashboardComponent implements OnInit {
       STUDENT_TYPE.ENROLLED_STUDENTS
     );
 
-    const result = res.map((student: CSSPSStudent) =>
-      student.programOffered.toLowerCase()
-    );
-    const programmes = [...new Set(result)];
-
-    const EnrolledStudents = res.content;
+    this.enrolledStudents = res;
 
     const labels: string[] = [];
     const femaleDayData: number[] = [];
@@ -287,7 +334,7 @@ export class DashboardComponent implements OnInit {
 
       labels.push(programme.toUpperCase());
 
-      for (const student of this.placedStudents) {
+      for (const student of this.enrolledStudents) {
         if (
           student.programOffered.toLowerCase() === programme &&
           student.gender.toLowerCase() === 'male' &&
@@ -320,32 +367,137 @@ export class DashboardComponent implements OnInit {
       maleBoardingData.push(totalMaleBoarding);
     });
 
-    this.placementByProgrammeAndGenderAndResidency = {
+    this.enrollmentByProgrammeAndGenderAndResidency = {
       labels, // your list of programmes
       datasets: [
         {
           label: 'Male - Day',
-          backgroundColor: '#64B5F6',
+          backgroundColor: '#827717',
           data: maleDayData,
           stack: 'Male',
         },
         {
           label: 'Male - Boarding',
-          backgroundColor: '#1976D2',
+          backgroundColor: '#CDDC39',
           data: maleBoardingData,
           stack: 'Male',
         },
         {
           label: 'Female - Day',
-          backgroundColor: '#FFB74D',
+          backgroundColor: '#4DB6AC',
           data: femaleDayData,
           stack: 'Female',
         },
         {
           label: 'Female - Boarding',
-          backgroundColor: '#F57C00',
+          backgroundColor: '#00695C',
           data: femaleBoardingData,
           stack: 'Female',
+        },
+      ],
+    };
+
+    this.prepareChartData(res);
+  }
+
+  prepareChartData(students: StudentExcelFormat[]) {
+    const counts = new Map<string, number>();
+    const today = dayjs();
+    const currentMonth = today.format('YYYY-MM');
+
+    for (const admission of students) {
+      const date = dayjs(admission.dateTimeAdmitted);
+      const month = date.format('YYYY-MM');
+      let key = '';
+
+      if (month === currentMonth) {
+        // Label per day
+        key = date.format('MMMM D'); // e.g., "July 3"
+      } else {
+        // Label per month
+        key = date.format('MMMM YYYY'); // e.g., "June 2025"
+      }
+
+      counts.set(key, (counts.get(key) || 0) + 1);
+    }
+
+    // Sort keys chronologically
+    const sortedKeys = Array.from(counts.keys()).sort((a, b) => {
+      const aDate = dayjs(a.includes(' ') ? a : `${a} 1`, [
+        'MMMM D',
+        'MMMM YYYY',
+      ]);
+      const bDate = dayjs(b.includes(' ') ? b : `${b} 1`, [
+        'MMMM D',
+        'MMMM YYYY',
+      ]);
+      return aDate.valueOf() - bDate.valueOf();
+    });
+
+    const labels = sortedKeys;
+    const data = sortedKeys.map((key) => counts.get(key)!);
+
+    this.enrollmentLineChartConfig = {
+      labels,
+      datasets: [
+        {
+          label: 'Number of Enrolled Students',
+          data,
+          backgroundColor: '#36A2EB',
+        },
+      ],
+    };
+  }
+
+  async generateAdmissionLineChart() {
+    const counts = new Map<string, number>();
+    const today = dayjs();
+    const currentMonth = today.format('YYYY-MM');
+
+    const res = await this.studentRepo.getStudentList(
+      Number(this.sessionStore.sessionSchool().id),
+      STUDENT_TYPE.ADMITTED_STUDENTS
+    );
+
+    for (const admission of res) {
+      const date = dayjs(admission.dateTimeAdmitted);
+      const month = date.format('YYYY-MM');
+      let key = '';
+
+      if (month === currentMonth) {
+        // Label per day
+        key = date.format('MMMM D'); // e.g., "July 3"
+      } else {
+        // Label per month
+        key = date.format('MMMM YYYY'); // e.g., "June 2025"
+      }
+
+      counts.set(key, (counts.get(key) || 0) + 1);
+    }
+
+    // Sort keys chronologically
+    const sortedKeys = Array.from(counts.keys()).sort((a, b) => {
+      const aDate = dayjs(a.includes(' ') ? a : `${a} 1`, [
+        'MMMM D',
+        'MMMM YYYY',
+      ]);
+      const bDate = dayjs(b.includes(' ') ? b : `${b} 1`, [
+        'MMMM D',
+        'MMMM YYYY',
+      ]);
+      return aDate.valueOf() - bDate.valueOf();
+    });
+
+    const labels = sortedKeys;
+    const data = sortedKeys.map((key) => counts.get(key)!);
+
+    this.admissionLineChartConfig = {
+      labels,
+      datasets: [
+        {
+          label: 'Number of Admitted Students',
+          data,
+          backgroundColor: '#FF6384',
         },
       ],
     };

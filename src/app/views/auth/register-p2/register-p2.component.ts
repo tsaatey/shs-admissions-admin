@@ -105,7 +105,11 @@ export class RegisterP2Component implements OnInit, AfterViewInit {
       this.loading.next(false);
 
       // Display the error
-      this.toastr.error(error?.message || error?.error);
+      this.toastr.error(
+        error?.message ||
+          error?.error?.message ||
+          'An error occurred while processing your request. Please try again.'
+      );
     }
   }
 }

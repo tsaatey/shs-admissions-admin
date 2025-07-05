@@ -75,7 +75,6 @@ export class DownloadsComponent {
             STUDENT_TYPE.ADMITTED_STUDENTS
           );
 
-          console.log('Admitted Students:', this.students);
           await this.generateFile(
             this.students,
             this.studentTypeId,

@@ -114,7 +114,9 @@ export class EmailDispatchComponent
       // Stop loading
       this.loading.next(false);
 
-      this.toastr.error(`Failed to confirm account: ${error?.error?.message}`);
+      this.toastr.error(
+        `Failed to confirm account: ${error?.message || error?.error?.message}`
+      );
     }
   }
 
@@ -133,7 +135,9 @@ export class EmailDispatchComponent
     } catch (error: any) {
       this.requestingCode.next(false);
 
-      this.toastr.error(`Failed to send code: ${error?.error?.message}`);
+      this.toastr.error(
+        `Failed to send code: ${error?.message || error?.error?.message}`
+      );
     }
   }
 }

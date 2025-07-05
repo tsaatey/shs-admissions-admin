@@ -58,12 +58,14 @@ export class AuthenticationService {
   public changePassword(
     previousPassword: string,
     proposedPassword: string,
-    confirmProposedPassword: string
+    confirmProposedPassword: string,
+    accessToken: string
   ): Observable<any> {
     return this.httpClient.post(`${environment.baseUrl}/change-password`, {
       previousPassword,
       proposedPassword,
       confirmProposedPassword,
+      accessToken,
     });
   }
 

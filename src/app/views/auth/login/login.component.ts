@@ -104,10 +104,12 @@ export class LoginComponent implements OnInit {
     } catch (error: any) {
       this.loading.next(false);
 
-      if (error?.message === 'User is not confirmed.') {
+      if (error?.error?.message === 'User is not confirmed.') {
         setTimeout(() => {
           this.toastr.error(
-            `${error?.message}. Redirecting you to confirm account...`
+            `${
+              error?.error?.message || error?.message
+            }. Redirecting you to confirm account...`
           );
           // Redirect to confirm account
           this.router.navigate(['confirm-account'], {
@@ -116,7 +118,11 @@ export class LoginComponent implements OnInit {
         }, 500);
       } else {
         // Login failed
-        this.toastr.error(error?.message || 'Invalid username or password');
+        this.toastr.error(
+          error?.error?.message ||
+            error?.message ||
+            'Invalid username or password'
+        );
       }
     }
   }
