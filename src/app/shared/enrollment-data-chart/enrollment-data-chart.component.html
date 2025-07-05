@@ -1,0 +1,62 @@
+<div class="enrollment-table">
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="3">PROGRAMME</th>
+        <th colspan="6">RESIDENCY</th>
+        <!-- <th colspan="3"></th> -->
+        <th rowspan="3">OVERALL TOTAL</th>
+      </tr>
+      <tr>
+        <th colspan="3">DAY</th>
+        <th colspan="3">BOARDING</th>
+      </tr>
+      <tr>
+        <th>MALE</th>
+        <th>FEMALE</th>
+        <th>TOTAL</th>
+        <th>MALE</th>
+        <th>FEMALE</th>
+        <th>TOTAL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let programme of programmeTotals; let i = index">
+        <td>{{ programme.name }}</td>
+        <td>{{ programme.day.male }}</td>
+        <td>{{ programme.day.female }}</td>
+        <td [style.fontWeight]="'bold'">{{ programme.day.total }}</td>
+        <td>{{ programme.boarding.male }}</td>
+        <td>{{ programme.boarding.female }}</td>
+        <td [style.fontWeight]="'bold'">{{ programme.boarding.total }}</td>
+        <td [style.fontWeight]="'bold'">{{ programme.overallTotal }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td><strong>TOTALS</strong></td>
+        <td>
+          <strong>{{ grandTotals.dayMale }}</strong>
+        </td>
+        <td>
+          <strong>{{ grandTotals.dayFemale }}</strong>
+        </td>
+        <td>
+          <strong>{{ grandTotals.dayTotal }}</strong>
+        </td>
+        <td>
+          <strong>{{ grandTotals.boardingMale }}</strong>
+        </td>
+        <td>
+          <strong>{{ grandTotals.boardingFemale }}</strong>
+        </td>
+        <td>
+          <strong>{{ grandTotals.boardingTotal }}</strong>
+        </td>
+        <td>
+          <strong>{{ grandTotals.overallTotal }}</strong>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

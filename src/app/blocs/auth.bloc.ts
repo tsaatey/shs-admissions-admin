@@ -71,9 +71,7 @@ export class AuthenticationBloc {
           }
         },
         error: (error: HttpErrorResponse) => {
-          const errorMessage = getErrorMessage(error);
-
-          reject({ success: false, message: errorMessage });
+          reject(error);
         },
       });
     });
@@ -91,9 +89,7 @@ export class AuthenticationBloc {
           resolve({ success: true, message: 'success' });
         },
         error: (error: HttpErrorResponse) => {
-          const errorMessage = getErrorMessage(error);
-
-          reject({ success: false, message: errorMessage });
+          reject(error);
         },
       });
     });
@@ -118,8 +114,7 @@ export class AuthenticationBloc {
             resolve({ success: true, message: 'success' });
           },
           error: (error: HttpErrorResponse) => {
-            const errorMessage = getErrorMessage(error);
-            reject({ success: false, message: errorMessage });
+            reject(error);
           },
         });
     });
@@ -135,8 +130,7 @@ export class AuthenticationBloc {
           resolve({ success: true, message: 'success' });
         },
         error: (error: HttpErrorResponse) => {
-          const errorMessage = getErrorMessage(error);
-          reject({ success: false, message: errorMessage });
+          reject(error);
         },
       });
     });
@@ -160,14 +154,16 @@ export class AuthenticationBloc {
   async changePassword(
     previousPassword: string,
     proposedPassword: string,
-    confirmProposedPassword: string
+    confirmProposedPassword: string,
+    accessToken: string
   ): Promise<{ success: boolean; message: string }> {
     return new Promise((resolve, reject) => {
       this.authService
         .changePassword(
           previousPassword,
           proposedPassword,
-          confirmProposedPassword
+          confirmProposedPassword,
+          accessToken
         )
         .subscribe({
           next: (response: HttpResponse<any>) => {
@@ -175,9 +171,7 @@ export class AuthenticationBloc {
             resolve({ success: true, message: 'success' });
           },
           error: (error: HttpErrorResponse) => {
-            // Error
-            const errorMessage = getErrorMessage(error);
-            reject(errorMessage);
+            reject(error);
           },
         });
     });

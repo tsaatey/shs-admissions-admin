@@ -21,6 +21,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { AuthenticationBloc } from '../../blocs/auth.bloc';
+import { AuthStore } from '../../store/authentication.store';
 
 @Component({
   selector: 'app-account',
@@ -46,6 +47,7 @@ export class AccountComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private toastr = inject(ToastrService);
   private authBloc = inject(AuthenticationBloc);
+  private authStore = inject(AuthStore);
 
   public userForm: any;
   public changePasswordForm: any;
@@ -93,7 +95,8 @@ export class AccountComponent implements OnInit {
       await this.authBloc.changePassword(
         previousPassword,
         proposedPassword,
-        confirmProposedPassword
+        confirmProposedPassword,
+        this.authStore.jwt()
       );
 
       this.toastr.success('Password changed successfully');
@@ -105,7 +108,7 @@ export class AccountComponent implements OnInit {
       this.loading.next(false);
 
       this.toastr.error(
-        `An error occurred while changing the password. Please try again. ${
+        `An error occurred while changing the password. ${
           error.error?.message || error.message || 'Unknown error'
         }`
       );
