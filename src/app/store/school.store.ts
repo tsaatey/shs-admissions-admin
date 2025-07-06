@@ -9,6 +9,7 @@ import {
 } from '@ngrx/signals';
 import { AcademicYear } from './../models/academic-year.model';
 import { effect } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 interface SchoolStateModel {
   currentAcademicYear: AcademicYear;
@@ -37,7 +38,9 @@ export const SchoolStateStore = signalStore(
         saveStateToStorage(state);
       }),
         watchState(store, (state) => {
-          console.log('SchoolState', state);
+          if (environment.development) {
+            console.log('SchoolState', state);
+          }
         });
     },
   })

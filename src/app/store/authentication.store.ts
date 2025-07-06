@@ -13,6 +13,7 @@ import {
 } from '@ngrx/signals';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { effect } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 export interface AuthenticationStateModel {
   authenticated: boolean;
@@ -87,7 +88,9 @@ export const AuthStore = signalStore(
         saveStateToStorage(state);
       }),
         watchState(store, (state) => {
-          console.log('Auth', state);
+          if (environment.development) {
+            console.log('Auth', state);
+          }
         });
     },
   })

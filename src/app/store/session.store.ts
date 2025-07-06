@@ -10,6 +10,7 @@ import {
   getState,
 } from '@ngrx/signals';
 import { effect } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 interface SessionStateModel {
   sessionUser: User;
@@ -50,7 +51,9 @@ export const SessionStateStore = signalStore(
         saveStateToStorage(state);
       }),
         watchState(store, (state) => {
-          console.log('Session', state);
+          if (environment.development) {
+            console.log('Session', state);
+          }
         });
     },
   })

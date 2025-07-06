@@ -51,7 +51,6 @@ export class EnrollmentDataChartComponent implements OnChanges {
   };
 
   ngOnChanges() {
-    console.log('Student Data:', this.studentData);
     this.calculateTotals();
   }
 
