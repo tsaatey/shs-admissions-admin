@@ -28,6 +28,7 @@ import { LoaderService } from '../../services/loader.service';
 import { StatCardComponent } from '../../shared/stat-card/stat-card.component';
 import { EnrollmentDataChartComponent } from '../../shared/enrollment-data-chart/enrollment-data-chart.component';
 import dayjs from 'dayjs';
+import { Student } from '../../models/student.model';
 
 @Component({
   templateUrl: 'dashboard.component.html',
@@ -124,7 +125,7 @@ export class DashboardComponent implements OnInit {
       y: {
         title: {
           display: true,
-          text: 'Number of Enrolled Students',
+          // text: 'Number of Enrolled Students',
         },
         beginAtZero: true,
       },
@@ -143,7 +144,7 @@ export class DashboardComponent implements OnInit {
       y: {
         title: {
           display: true,
-          text: 'Number of Admitted Students',
+          // text: 'Number of Admitted Students',
         },
         beginAtZero: true,
       },
@@ -400,13 +401,13 @@ export class DashboardComponent implements OnInit {
     this.prepareChartData(res);
   }
 
-  prepareChartData(students: StudentExcelFormat[]) {
+  prepareChartData(students: Student[]) {
     const counts = new Map<string, number>();
     const today = dayjs();
     const currentMonth = today.format('YYYY-MM');
 
-    for (const admission of students) {
-      const date = dayjs(admission.dateTimeAdmitted);
+    for (const student of students) {
+      const date = dayjs(student.createdAt);
       const month = date.format('YYYY-MM');
       let key = '';
 
@@ -454,13 +455,13 @@ export class DashboardComponent implements OnInit {
     const today = dayjs();
     const currentMonth = today.format('YYYY-MM');
 
-    const res = await this.studentRepo.getStudentList(
+    const res = (await this.studentRepo.getStudentList(
       Number(this.sessionStore.sessionSchool().id),
       STUDENT_TYPE.ADMITTED_STUDENTS
-    );
+    )) as Student[];
 
-    for (const admission of res) {
-      const date = dayjs(admission.dateTimeAdmitted);
+    for (const student of res) {
+      const date = dayjs(student.createdAt);
       const month = date.format('YYYY-MM');
       let key = '';
 
