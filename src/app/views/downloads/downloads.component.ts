@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { LoaderService } from './../../services/loader.service';
 import { StudentRepository } from './../../repositories/student.repo';
 import { StudentExcelFormat } from './../../models/student-excel-model';
@@ -38,6 +39,7 @@ export class DownloadsComponent {
   private excelService = inject(ExcelExporterService);
   private sessionStore = inject(SessionStateStore);
   private loaderService = inject(LoaderService);
+  private toastr = inject(ToastrService);
 
   private studentTypeId: string = '';
   private studentTypeName: string = '';
@@ -67,6 +69,7 @@ export class DownloadsComponent {
             this.studentTypeName
           );
           this.loaderService.hideLoader();
+          this.toastr.success('File downloaded successfully');
           break;
 
         case 'admitted-students':
@@ -81,6 +84,7 @@ export class DownloadsComponent {
             this.studentTypeName
           );
           this.loaderService.hideLoader();
+          this.toastr.success('File downloaded successfully');
           break;
 
         case 'enrolled-students':
@@ -94,6 +98,7 @@ export class DownloadsComponent {
             this.studentTypeName
           );
           this.loaderService.hideLoader();
+          this.toastr.success('File downloaded successfully');
           break;
 
         case 'not-enrolled-students':
@@ -107,6 +112,7 @@ export class DownloadsComponent {
             this.studentTypeName
           );
           this.loaderService.hideLoader();
+          this.toastr.success('File downloaded successfully');
           break;
 
         case 'dates-of-birth':
@@ -124,6 +130,7 @@ export class DownloadsComponent {
             this.studentTypeName
           );
           this.loaderService.hideLoader();
+          this.toastr.success('File downloaded successfully');
           break;
 
         case 'guardian-information':
@@ -141,8 +148,12 @@ export class DownloadsComponent {
             this.studentTypeName
           );
           this.loaderService.hideLoader();
+          this.toastr.success('File downloaded successfully');
           break;
       }
+    } else {
+      this.loaderService.hideLoader();
+      this.toastr.error('Please select the category of data to download');
     }
   }
 
