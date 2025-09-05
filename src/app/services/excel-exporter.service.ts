@@ -8,6 +8,7 @@ import {
   dobExcelHeaders,
   formattedExcelHeaders,
   guardianInformationExcelHeaders,
+  uploadStudentsExcelHeaders,
 } from '../data/full-excel-headers';
 
 @Injectable({ providedIn: 'root' })
@@ -168,6 +169,23 @@ export class ExcelExporterService {
         residentialAddressOfGuardian: student.residentialAddressOfGuardian,
       });
     });
+
+    // Style header row
+    worksheet.getRow(1).font = { bold: true };
+
+    // Generate the Excel file
+    const buffer = await workbook.xlsx.writeBuffer();
+    return new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+  }
+
+  async generateUploadStudentTemplate() {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Upload Students Template');
+
+    // Define headers for upload student template
+    worksheet.columns = uploadStudentsExcelHeaders;
 
     // Style header row
     worksheet.getRow(1).font = { bold: true };

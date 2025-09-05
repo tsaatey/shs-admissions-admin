@@ -145,3 +145,13 @@ export const guardianInformationExcelHeaders = [
     width: 30,
   },
 ];
+
+export const uploadStudentsExcelHeaders = [
+  { header: 'JHS Index Number', key: 'jhsIndexNumber', width: 20 },
+  { header: 'Name of Student', key: 'name', width: 50 },
+  { header: 'Gender', key: 'gender', width: 10 },
+  { header: 'Aggregate', key: 'grade', width: 12 },
+  { header: 'Program Offered', key: 'programOffered', width: 25 },
+  { header: 'Track', key: 'track', width: 15 },
+  { header: 'Residency', key: 'residentialStatus', width: 15 },
+];

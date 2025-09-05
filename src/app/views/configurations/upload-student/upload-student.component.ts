@@ -83,7 +83,7 @@ export class UploadStudentComponent implements OnInit {
           <th scope="col">Aggregate</th>
           <th scope="col">Programme</th>
           <th scope="col">Track</th>
-          <th scope="col">Status</th>
+          <th scope="col">Residency</th>
         </tr>
       </thead>
       <tbody>
@@ -164,5 +164,15 @@ export class UploadStudentComponent implements OnInit {
     this.dialog.open(MoreInformationComponent, {
       data: this.uploadStudentInfo,
     });
+  }
+  async onDownloadTemplate() {
+    const excel = await this.excelService.generateUploadStudentTemplate();
+    const fileName = 'upload-students-template.xlsx';
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(excel);
+    link.download = fileName;
+    link.click();
+    link.remove();
   }
 }
