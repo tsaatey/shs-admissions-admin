@@ -26,6 +26,8 @@ import { BehaviorSubject } from 'rxjs';
 import { AdmisionManagementRepository } from '../../repositories/admission-management.repo';
 import { AdmissionNumberDisplayComponent } from '../../dialogs/admission-number-display/admission-number-display.component';
 import { CSSPSStudent } from '../../models/student-excel-model';
+import { SchoolStateStore } from '../../store/school.store';
+import { STUDENT_TYPE } from '../../enums/student-type.enums';
 
 @Component({
   selector: 'app-manual-admission',
@@ -54,6 +56,7 @@ export class ManualAdmissionComponent implements OnInit {
   private adminRepo = inject(AdmisionManagementRepository);
   private dialog = inject(MatDialog);
   private studentRepo = inject(StudentRepository);
+  public schoolStore = inject(SchoolStateStore);
 
   public form: any;
   public addStudentForm: any;
@@ -63,7 +66,9 @@ export class ManualAdmissionComponent implements OnInit {
     false
   );
 
-  ngOnInit(): void {
+  public programmes: string[] = [];
+
+  async ngOnInit() {
     this.form = this.formBuilder.group({
       jhsIndexNumber: ['', Validators.required],
     });
@@ -77,6 +82,8 @@ export class ManualAdmissionComponent implements OnInit {
       track: ['', Validators.required],
       residentialStatus: ['', Validators.required],
     });
+
+    this.getProgrammes();
   }
 
   async onGenerateAdmissionNumber() {
@@ -153,5 +160,17 @@ export class ManualAdmissionComponent implements OnInit {
         error?.error?.message || error?.message || 'Unknown error'
       );
     }
+  }
+
+  async getProgrammes() {
+    const res = await this.studentRepo.getStudentList(
+      Number(this.sessionStore.sessionSchool().id),
+      STUDENT_TYPE.ALL_STUDENTS
+    );
+
+    const result = res.map((student: CSSPSStudent) =>
+      student.programOffered.toLowerCase()
+    );
+    this.programmes = [...new Set(result)] as string[];
   }
 }

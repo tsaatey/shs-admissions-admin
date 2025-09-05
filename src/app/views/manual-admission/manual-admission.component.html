@@ -121,14 +121,15 @@
                         </c-col>
                         <c-col sm="6">
                           <label cLabel for="programOffered">Programme</label>
-                          <c-input-group class="mb-3">
-                            <input
-                              type="text"
-                              id="programOffered"
-                              cFormControl
-                              placeholder="E.g General Arts"
-                              formControlName="programOffered"
-                            />
+                          <c-input-group>
+                            <select cSelect formControlName="programOffered">
+                              @for (programme of programmes ?? []; track $index)
+                              {
+                              <option [value]="programme | uppercase">
+                                {{ programme | uppercase }}
+                              </option>
+                              }
+                            </select>
                           </c-input-group>
 
                           <label cLabel for="track">Track</label>
