@@ -13,10 +13,12 @@ import { environment } from '../../environments/environment';
 
 interface SchoolStateModel {
   currentAcademicYear: AcademicYear;
+  programmes?: string[];
 }
 
 const initialState: SchoolStateModel = {
   currentAcademicYear: {} as AcademicYear,
+  programmes: [],
 };
 
 export const SchoolStateStore = signalStore(
@@ -25,6 +27,9 @@ export const SchoolStateStore = signalStore(
   withMethods((store) => ({
     setCurrentAcademicYear(currentAcademicYear: AcademicYear) {
       patchState(store, { currentAcademicYear });
+    },
+    setProgrammes(programmes: string[]) {
+      patchState(store, { programmes });
     },
     reset() {
       patchState(store, initialState);

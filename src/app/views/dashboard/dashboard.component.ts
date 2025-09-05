@@ -194,6 +194,9 @@ export class DashboardComponent implements OnInit {
     // Generate admission line chart
     await this.generateAdmissionLineChart();
 
+    // Set programmes in store
+    this.schoolStore.setProgrammes(this.programmes);
+
     // Hide the loader
     this.loader.hideLoader();
   }
