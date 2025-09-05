@@ -45,7 +45,6 @@ import { SchoolRepository } from '../../../repositories/school.repo';
     DropdownMenuDirective,
     DropdownItemDirective,
     RouterLink,
-    ChartjsComponent,
   ],
 })
 export class WidgetsDropdownComponent implements OnInit, AfterContentInit {

@@ -123,8 +123,7 @@
                           <label cLabel for="programOffered">Programme</label>
                           <c-input-group>
                             <select cSelect formControlName="programOffered">
-                              @for (programme of programmes ?? []; track $index)
-                              {
+                              @for (programme of programmes; track $index) {
                               <option [value]="programme | uppercase">
                                 {{ programme | uppercase }}
                               </option>
