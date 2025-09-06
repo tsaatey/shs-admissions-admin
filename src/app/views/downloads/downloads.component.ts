@@ -150,6 +150,10 @@ export class DownloadsComponent {
           this.loaderService.hideLoader();
           this.toastr.success('File downloaded successfully');
           break;
+        default:
+          this.loaderService.hideLoader();
+          this.toastr.error('Please select the category of data to download');
+          break;
       }
     } else {
       this.loaderService.hideLoader();
